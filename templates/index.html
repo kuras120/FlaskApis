@@ -11,9 +11,20 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/default.css') }}">
 </head>
     <body>
-        <h1>Hello {{ name }}</h1>
+        <!-- <h1>Hello {{ name }}</h1> -->
 
+            <!-- NAV BAR -->
+        <nav class="navbar navbar-inverse bg-dark">
+            <form class="form-inline">
+                <input class="form-control" type="text" placeholder="login">
+                <input class="form-control" type="password" placeholder="password">
+                <button class="btn btn-primary">Enter</button>
+            </form>
+        </nav>
+
+        <!-- CONTENT SECTION -->
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-md-2 block1">
                     <div id="card">
@@ -40,8 +51,13 @@
                     </div>
                 </div>
             </div>
+            <button id="flip" class="btn btn-primary" onclick="FlipCard();">Kliknij</button>
+            <row>
+                <div class="col-md-4">
+                </div>
+            </row>
         </div>
-        <button id="flip" onclick="FlipCard();">Kliknij</button>
+
         <!-- Optional JavaScript -->
         <script src="../static/javascript/FlipCard.js"></script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
