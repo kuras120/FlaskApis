@@ -1,18 +1,18 @@
 from flask import Flask, render_template
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 
-@app.route('/')
+@application.route('/')
 def start():
     return render_template('index.html')
 
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
+@application.route('/hello/')
+@application.route('/hello/<name>')
 def hello(name=None):
     return render_template('hello.html', name=name)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True, host='0.0.0.0')
