@@ -98,7 +98,7 @@ body { font-family: sans-serif; }
     border-radius: 5px;
 }
 
-.grid-item:hover {
+.grid-item:hover, .grid-item:active{
     background: #A2C;
     border-color: white;
     cursor: pointer;
@@ -115,4 +115,8 @@ body { font-family: sans-serif; }
 .grid-item--gigante {
   width: 640px;
   height: 360px;
+}
+
+.grid .hidden {
+    visibility: hidden;
 }

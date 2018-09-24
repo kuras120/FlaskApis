@@ -14,4 +14,10 @@ $grid.on( 'click', '.grid-item', function() {
         // trigger layout
         $grid.masonry();
     }
+
+    if($(this).children().hasClass('hidden'))
+        $(this).children().removeClass('hidden');
+    else
+        $(this).children().addClass('hidden');
+
 });
