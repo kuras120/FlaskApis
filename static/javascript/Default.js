@@ -1,6 +1,6 @@
 
 //navbar hiding
-/*$(document).ready(function () {
+$(document).ready(function () {
 
   'use strict';
 
@@ -21,7 +21,7 @@
       c = currentScrollTop;
   });
 
-});*/
+});
 
 //collapse navbar hiding after click
 $(document).ready(function () {
