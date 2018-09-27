@@ -5,16 +5,131 @@ body { font-family: sans-serif; }
     margin: 0;
 }
 
-nav {
+nav{
     z-index: 9998;
     transition: all 0.5s;
+    min-height: 100%;
 }
 
 .scrollUp {
     transform: translateY(-80px);
 }
 
+/* ---- flex ---- */
+.flex-container {
+    height: 100vh;
+    background: pink;
+}
+.flex-navbar {
+    height: 10%;
+}
+.flex-jumbotron{
+    height: 45%;
+}
+.flex-content {
+    background: linear-gradient(to bottom, #e9ecef, #eff1f3, #f5f5f7, #fafafb, #ffffff);
+    height: 45%;
+    padding: 0rem 2rem;
+}
+
+.flex-description {
+    height: 25%;
+}
+
+.flex-icons {
+    height: 75%;
+}
 /* ---- grid ---- */
-.grid-background {
-    background-image: linear-gradient(to bottom, #e9ecef, #eff1f3, #f5f5f7, #fafafb, #ffffff);
+
+.content-box:hover {
+    background: pink;
+}
+
+.content-box .fa-inverse,
+.content-box:hover .fa-normal {
+    display: none;
+}
+
+.content-box .fa-normal,
+.content-box:hover .fa-inverse {
+    display: inline;
+}
+/*
+.row-box {
+    border: 2px dotted black;
+}
+
+.content-box:hover {
+    background: red;
+}*/
+
+.click-bars {
+    font-size: 15vw;
+}
+
+h4.text {
+
+}
+
+
+@media only screen and (min-width: 1201px) {
+    .flex-jumbotron{
+        height: 45%;
+    }
+    .flex-content {
+        background: linear-gradient(to bottom, #e9ecef, #eff1f3, #f5f5f7, #fafafb, #ffffff);
+        height: 45%;
+        padding: 0rem 2rem;
+    }
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .flex-jumbotron{
+        height: 45%;
+    }
+    .flex-content {
+        background: linear-gradient(to bottom, #e9ecef, #eff1f3, #f5f5f7, #fafafb, #ffffff);
+        height: 45%;
+        padding: 0rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .flex-jumbotron{
+        height: 70%;
+    }
+    .flex-content {
+        background: linear-gradient(to bottom, #e9ecef, #eff1f3, #f5f5f7, #fafafb, #ffffff);
+        height: 20%;
+        padding: 0rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .flex-jumbotron{
+        height: 70%;
+    }
+    .flex-content {
+        background: linear-gradient(to bottom, #e9ecef, #eff1f3, #f5f5f7, #fafafb, #ffffff);
+        height: 20%;
+        padding: 0rem 2rem;
+    }
+    h4.text {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .flex-jumbotron{
+        height: 75%;
+    }
+    .flex-content {
+        background: linear-gradient(to bottom, #e9ecef, #eff1f3, #f5f5f7, #fafafb, #ffffff);
+        height: 15%;
+        padding: 0rem 2rem;
+    }
+    h4.text {
+        display: none;
+    }
 }

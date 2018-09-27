@@ -10,62 +10,81 @@
     <title>Template</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/default.css') }}">
 
     <!--favicon-->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
     <body>
+        <div class="d-flex flex-column flex-container">
+            <div class="flex-navbar">
+                <!-- NAV BAR -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                  <a class="navbar-brand" href="#">Template</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="#"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                      </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                      <button class="btn btn-default my-2 my-sm-0" type="submit">Sign in</button>
+                    </form>
+                  </div>
+                </nav>
+            </div>
 
-        <!-- NAV BAR -->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#menu">Menu</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn-default my-2 my-sm-0" type="submit">Sign in</button>
-            </form>
-          </div>
-        </nav>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container-fluid">
-                <h1 class="display-4">Welcome home boi!</h1>
-                <p class="lead">description...</p>
-                <hr class="my-4">
-                <div class="text-right">
-                    <p>Boosted by Python Flask technology.</p>
-                    <a class="alert-link" href="http://flask.pocoo.org/">Learn flask</a>
+            <div class="jumbotron flex-jumbotron">
+                <div class="container-fluid">
+                    <h1 class="display-5">Template</h1>
+                    <p class="lead">description...</p>
+                    <hr class="my-4">
+                    <div class="text-right">
+                        <p>Boosted by Python Flask technology.</p>
+                        <a class="alert-link" href="http://flask.pocoo.org/">Learn flask</a>
+                    </div>
+                </div>
+            </div>
+            <!-- CONTENT SECTION -->
+            <div class="flex-content">
+                <div class="d-flex flex-description flex-row row-box align-items-center">
+                    <div class="col-12 content-box">
+                        <h2 class="display-5">Quick Start</h2>
+                    </div>
+                </div>
+                <div class="d-flex flex-icons flex-row row-box">
+                    <div class="col-4 content-box text-center">
+                        <h4 class="text">Questionnaire</h4>
+                        <i class="fas fa-clipboard-list fa-5x fa-normal click-bars"></i>
+                        <i class="fas fa-clipboard-list fa-5x fa-inverse click-bars"></i>
+                    </div>
+                    <div class="col-4 content-box text-center">
+                        <h4 class="text">Filler</h4>
+                        <i class="fab fa-accessible-icon fa-normal click-bars"></i>
+                        <i class="fab fa-accessible-icon fa-inverse click-bars"></i>
+                    </div>
+                    <div class="col-4 content-box text-center">
+                        <h4 class="text">Sign In</h4>
+                        <i class="fas fa-sign-in-alt fa-normal click-bars"></i>
+                        <i class="fas fa-sign-in-alt fa-inverse click-bars"></i>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- CONTENT SECTION -->
-        <div id="menu" class="container-fluid">
-            <div class="row grid-background">
-                <div class="col">
-
-                </div>
-            </div>
-        </div>
-
-        </div>
+    </body>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
