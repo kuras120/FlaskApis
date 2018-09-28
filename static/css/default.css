@@ -1,12 +1,13 @@
 
 body {
     font-family: sans-serif;
-    background: #eee8aa;
+    background: cornsilk;
 }
 
-.jumbotron {
-    margin: 5px 5px 5px 5px;
-    opacity: 0.8;
+.nav-container {
+    height: 100vh;
+    max-height: 100vh;
+    min-height: 100vh;
 }
 
 .upper-container {
@@ -17,23 +18,27 @@ body {
     clip-path: polygon(100% 0, 100% 95%, 52% 95%, 50% 98%, 48% 95%, 0 95%, 0 0);
 }
 
-.content {
-
-}
 .custom-nav {
     border-radius: 5px;
-    opacity: 0.8;
+    background-color: rgba(233,236,239, 0.3) !important;
 }
 
-.navigation {
-    height: 40vh;
+.jumbotron {
+    margin: 5px 5px 5px 5px;
+    background-color: rgba(233,236,239, 0.3);
+}
+
+.content {
 }
 
 .content-title {
     font-family: "Comic Sans MS", cursive, sans-serif;
-    text-align: center;
     font-weight: bold;
     font-size: 2vw;
+}
+
+.content-description {
+    color: #3B3B3B;
 }
 
 .underline {
@@ -45,24 +50,34 @@ body {
 .content i.fas, .content i.fab {
     display: inline-block;
     border-radius: 60px;
-    box-shadow: 0px 0px 2px #888;
+    box-shadow: 5px 5px 15px #999999;
     padding: 0.5em 0.6em;
     background: white;
     font-size: 5vw;
 }
 
-/*--- TEST ---*/
-.quick-questionnaire {
+.content a {
+    color: saddlebrown;
+}
+
+.content a:hover {
+    color: chocolate;
+    text-shadow: 0px 0px 3px white;
+}
+
+#questionnaire {
     height: 100vh;
     border: 2px solid black;
     padding: 5px 5px 5px 5px;
 }
-.quick-wheelchair {
+
+#wheelchair {
     height: 100vh;
     border: 2px solid black;
     padding: 5px 5px 5px 5px;
 }
-.quick-signin {
+
+#signin {
     height: 100vh;
     border: 2px solid black;
     padding: 5px 5px 5px 5px;

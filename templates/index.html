@@ -16,81 +16,92 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     </head>
     <body>
-        <!-- NAV BAR -->
-        <div class="upper-container p-1">
-            <!-- TODO overlaping problem. -->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav m-3">
-                <a class="navbar-brand" href="#">LOGO</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#"> <span class="underline">Home</span> <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> Link </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> Link </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> Link </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> <i class="fab fa-facebook"></i> </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"> <i class="fab fa-twitter"></i> </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="jumbotron mx-3 mb-5">
-                <div class="container-fluid">
-                    <h1 class="display-5">Template</h1>
-                    <p class="lead">description...</p>
-                    <hr class="my-4">
-                    <div class="text-right">
-                        <p>Boosted by Python Flask technology.</p>
-                        <a class="alert-link" href="http://flask.pocoo.org/">Learn flask</a>
+        <div class="nav-container">
+            <div class="upper-container p-1">
+                <!-- TODO overlaping problem. -->
+                <!-- NAV BAR -->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light custom-nav m-3">
+                    <div class="container">
+                        <a class="navbar-brand" href="#">LOGO</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarText">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#"> <span class="underline">Home</span> <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"> Link </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"> Link </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"> Link </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"> <i class="fab fa-facebook"></i> </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"> <i class="fab fa-twitter"></i> </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="jumbotron mx-3 mb-5">
+                    <div class="container-fluid">
+                        <h1 class="display-5">Template</h1>
+                        <p class="lead">description...</p>
+                        <hr class="my-4">
+                        <div class="text-right">
+                            <p>Boosted by Python Flask technology.</p>
+                            <a class="alert-link" href="http://flask.pocoo.org/">Learn flask</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- CONTENT SECTION -->
-        <div class="container-fluid content">
-            <div class="row navigation">
-                <div class="col-4 content-nav text-center p-3">
-                    <a href="#questionnaire"><i class="fas fa-clipboard-list"></i></a>
-                    <p class="content-title p-3"><span class="underline">Questionnaire</span></p>
-                </div>
-                <div class="col-4 content-nav text-center p-3">
-                    <a href="#wheelchair"><i class="fab fa-accessible-icon"></i></a>
-                    <p class="content-title p-3"><span class="underline">WheelChair</span></p>
-                </div>
-                <div class="col-4 content-nav text-center p-3">
-                    <a href="#signin"><i class="fas fa-sign-in-alt"></i></a>
-                    <p class="content-title p-3"><span class="underline">Sign In</span></p>
-                </div>
-            </div>
-            <div class="row">
-                <div id="questionnaire" class="quick-questionnaire col-12">
-                    <h1>questionnaire</h1>
+            <!-- CONTENT SECTION -->
+            <div class="container-fluid content">
+                <div class="row">
+                    <div class="col-4 text-center p-3">
+                        <a href="#questionnaire"><i class="fas fa-clipboard-list" style="background: sandybrown"></i></a>
+                        <p class="content-title p-2"><span class="underline">Questionnaire</span></p>
+                        <p class="content-description px-5">Learn how to correctly complete the questionnaire before start to work.</p>
+                    </div>
+                    <div class="col-4 text-center p-3">
+                        <a href="#wheelchair"><i class="fab fa-accessible-icon" style="background: tan"></i></a>
+                        <p class="content-title p-2"><span class="underline">WheelChair</span></p>
+                        <p class="content-description px-5">Are you mentally disabled?</br>Start working on yourself!</p>
+                    </div>
+                    <div class="col-4 text-center p-3">
+                        <a href="#signin"><i class="fas fa-sign-in-alt" style="background: coral"></i></a>
+                        <p class="content-title p-2"><span class="underline">Sign In</span></p>
+                        <p class="content-description px-5">Quick join to our group to make work easier.</p>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div id="wheelchair" class="quick-wheelchair col-12">
-                    <h1>wheelchair</h1>
+
+            <!-- TODO Blue questionnaire with cog-wheel like top border -->
+
+            <div class="container-fluid content">
+                <div class="row">
+                    <div id="questionnaire" class="quick-questionnaire col-12">
+                        <h1>questionnaire</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="wheelchair" class="quick-wheelchair col-12">
+                        <h1>wheelchair</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="signin" class="quick-signin col-12">
+                        <h1>signin</h1>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div id="signin" class="quick-signin col-12">
-                    <h1>signin</h1>
-                </div>
-            </div>
-        </div>
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
