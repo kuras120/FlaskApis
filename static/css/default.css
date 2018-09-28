@@ -14,7 +14,6 @@ body {
     height: auto;
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/clipboard-background.jpg");
     background-size: cover;
-    -webkit-clip-path: polygon(100% 0, 100% 95%, 52% 95%, 50% 98%, 48% 95%, 0 95%, 0 0);
     clip-path: polygon(100% 0, 100% 95%, 52% 95%, 50% 98%, 48% 95%, 0 95%, 0 0);
 }
 
@@ -65,6 +64,24 @@ body {
     text-shadow: 0px 0px 3px white;
 }
 
+
+@media only screen and (max-width: 576px) {
+    .content i.fas, .content i.fab {
+        display: inline-block;
+        border-radius: 60px;
+        box-shadow: 5px 5px 15px #999999;
+        padding: 0.5em 0.6em;
+        background: white;
+        font-size: 20vw;
+    }
+    .content-title {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+    font-size: 6vw;
+    }
+}
+
+/*--- TEST ---*/
 #questionnaire {
     height: 100vh;
     border: 2px solid black;
