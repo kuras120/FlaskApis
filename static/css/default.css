@@ -84,7 +84,8 @@ body {
 /*--- TEST ---*/
 #questionnaire {
     height: 100vh;
-    border: 2px solid black;
+    background: royalblue;
+    clip-path: polygon(50% 2%, 52% 0, 100% 0, 100% 100%, 0 100%, 0 0, 48% 0);
     padding: 5px 5px 5px 5px;
 }
 
