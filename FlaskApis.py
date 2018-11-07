@@ -19,7 +19,7 @@ def index():
 def hello(name=None):
     return render_template('hello.html', name=name)
 
-
+             
 @app.route('/add_like/')
 def add_like():
     instance = Counter.get_instance()
