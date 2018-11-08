@@ -74,40 +74,93 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-12">
-                    <div class="row h-50">
-
-                    </div>
-                    <div class="row h-50">
-                        <div class="col-md-5 offset-md-1">
+                    <div class="container-fluid">
+                        <div class="row" style="height: 150px;">
 
                         </div>
-                        <div class="col-md-5">
-                            <form>
-                                <div class="d-block" style="font-weight: bold;">Have you ever heard about our product?</div>
-                                <div class="d-block">
-                                    <div class="form-check form-check-inline"> 
-                                        <label class="container">YES
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                            <span class="checkmark"></span>
-                                        </label>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                            </div>
+                            <div class="col-md-6">
+                                <form>
+                                    {% for item in question_data %}
+                                    <div class="d-block" style="font-weight: bold; font-size: 20px">{{ item[0] }}</div>
+                                    <div class="d-block">
+                                        {% for elem in item[1] %}
+                                        <div class="form-check form-check-inline">
+                                            <label class="checkbox-container">{{ elem }}
+                                                <input class="form-check-input" type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        {% endfor %}
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <label class="container">NO
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </form>
+                                    {% endfor %}
+                                </form>
+                            </div>
                         </div>
-                        <div class="offset-md-1"></div>
+                        <div class="row" style="height: 150px;"></div>
                     </div>
-                    <div style="height: 200px;"></div>
+
                 </div>
             </div>
+
         </div>
+        <footer class="pt-4" style="background-color: cornflowerblue;">
+            <div class="container-fluid text-center text-md-left">
+              <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                  <h5 class="text-uppercase">Footer Content</h5>
+                  <p>Here you can use rows and columns here to organize your footer content.</p>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3" />
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <h5 class="text-uppercase">Links</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="#!">Link 1</a>
+                      </li>
+                      <li>
+                        <a href="#!">Link 2</a>
+                      </li>
+                      <li>
+                        <a href="#!">Link 3</a>
+                      </li>
+                      <li>
+                        <a href="#!">Link 4</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <div class="col-md-3 mb-md-0 mb-3">
+                    <h5 class="text-uppercase">Links</h5>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="#!">Link 1</a>
+                      </li>
+                      <li>
+                        <a href="#!">Link 2</a>
+                      </li>
+                      <li>
+                        <a href="#!">Link 3</a>
+                      </li>
+                      <li>
+                        <a href="#!">Link 4</a>
+                      </li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+
+            <div class="footer-copyright text-center py-3" style="background-color: royalblue">© {{ year }} Copyright:
+              <a href="https://wojciechkur.azurewebsites.net"> Wojciech Kur</a>
+            </div>
+          </footer>
+  <!-- Footer -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -119,7 +172,7 @@
         <script type=text/javascript>
             $(document).ready( function() {
                 $('#like-button').click(function() {
-                    $.ajax("{{ url_for('add_like') }}").done(function (data) {
+                    $.ajax("{{ url_for('home_controller.add_like') }}").done(function (data) {
                         $('#like-button').html(" " + data);
                     });
                 });
