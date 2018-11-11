@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl-PL">
+<html lang="en">
     <head>
         <!-- Required meta tags -->
         <meta charset="UTF-8">
@@ -11,12 +11,12 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/default.css') }}">
-
         <!--favicon-->
         <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     </head>
-    <body>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <body class="d-flex flex-column">
+        <!-- NAVBAR DESKTOP/TABLET -->
+        <nav class="navbar d-none d-lg-flex fixed-top navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">LOGO</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,20 +30,27 @@
                     </ul>
                 </div>
             </div>
-            <div id="button-sign" class="d-flex align-items-center justify-content-center h-100">
+            <div id="button-sign" class="d-none d-lg-flex align-items-center justify-content-center h-100">
                 LET'S START!
             </div>
         </nav>
-        <div class="container-fluid">
-            <div id="banner" class="row">
+        <!-- NAVBAR MOBILE -->
+        <nav class="navbar d-lg-none fixed-top navbar-light bg-light">
+            <div class="container-fluid d-flex justify-content-center h-100 barstyle-cornflake-white">
+                <h5>TAP TO START</h5>
+            </div>
+        </nav>
+        <!-- CONTENT -->
+        <div class="container-fluid d-flex flex-column flex-grow-1 pt-5 pt-md-0">
+            <div id="banner" class="row d-none d-lg-flex">
                 <div class="col-12">
                     <div class="row h-25"></div>
                     <div class="row h-25">
                         <div class="col-md-4 d-flex justify-content-start p-4">
-                            <span style="color: royalblue; font-weight: bold;">Today is &nbsp;</span>
+                            <span class="font-weight-bold" style="color: royalblue;">Today is &nbsp;</span>
                             <span style="color: cornflowerblue;">{{ date }}</span>
                         </div>
-                        <div class="col-md-4 offset-md-4 d-flex justify-content-end p-4" style="text-align: center;">
+                        <div class="col-md-4 offset-md-4 d-flex justify-content-end p-4 text-center">
                             <i id="like-button" class="fas fa-heart on-hover p-2 m-1"> {{ likes }}</i>
                             <i class="fab fa-facebook-square fa-2x on-hover p-1"></i>
                             <i class="fab fa-twitter-square fa-2x on-hover p-1"></i>
@@ -51,10 +58,10 @@
                     </div>
                     <div class="row h-25">
                         <div class="col-md-6 offset-md-3">
-                            <h3 class="d-flex justify-content-center" style="color: royalblue; font-weight: bold;">
+                            <h3 class="d-flex justify-content-center font-weight-bold" style="color: royalblue;">
                                 Welcome in custom template!
                             </h3>
-                            <h6 class="d-flex justify-content-center" style="color: cornflowerblue; font-weight: normal;">
+                            <h6 class="d-flex justify-content-center font-weight-bold" style="color: cornflowerblue;">
                                 It's simply boosted by python flask technology.
                             </h6>
                             <div class="d-flex justify-content-center">
@@ -74,93 +81,87 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="container-fluid">
-                        <div class="row" style="height: 150px;">
-
+            <div class="row flex-grow-1 py-5">
+                <div class="col-12 d-flex align-items-center justify-content-center">
+                    <div class="row w-100">
+                        <div class="col-12 col-lg-6 text-info text-center">
+                            <h5>If you want to help us improve product, please fill in the form.</h5>
+                            <hr class="clearfix w-100 pb-3" />
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-
-                            </div>
-                            <div class="col-md-6">
-                                <form>
-                                    {% for item in question_data %}
-                                    <div class="d-block" style="font-weight: bold; font-size: 20px">{{ item[0] }}</div>
-                                    <div class="d-block">
-                                        {% for elem in item[1] %}
-                                        <div class="form-check form-check-inline">
-                                            <label class="checkbox-container">{{ elem }}
-                                                <input class="form-check-input" type="checkbox">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        {% endfor %}
+                        <div class="col-12 offset-0 col-sm-8 offset-sm-2 col-lg-6 offset-lg-0">
+                            <form>
+                                {% for item in question_data %}
+                                <div class="d-block font-weight-bold text-justify text-md-left">
+                                    <h5>{{ item[0] }}</h5>
+                                </div>
+                                <div class="d-block">
+                                    {% for elem in item[1] %}
+                                    <div class="form-check form-check-inline py-2">
+                                        <label class="checkbox-container">{{ elem }}
+                                            <input class="form-check-input" type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
                                     </div>
                                     {% endfor %}
-                                </form>
-                            </div>
+                                </div>
+                                {% endfor %}
+                            </form>
                         </div>
-                        <div class="row" style="height: 150px;"></div>
                     </div>
-
                 </div>
             </div>
-
         </div>
-        <footer class="pt-4" style="background-color: cornflowerblue;">
+        <!-- FOOTER -->
+        <footer class="pt-4 barstyle-cornflake-white">
             <div class="container-fluid text-center text-md-left">
-              <div class="row">
-                <div class="col-md-6 mt-md-0 mt-3">
-                  <h5 class="text-uppercase">Footer Content</h5>
-                  <p>Here you can use rows and columns here to organize your footer content.</p>
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <h5 class="text-uppercase">Footer Content</h5>
+                        <p>Here you can use rows and columns here to organize your footer content.</p>
+                    </div>
+                    <hr class="clearfix w-100 d-md-none pb-3" />
+                    <div class="col-md-3 mb-md-0 mb-3">
+                        <h5 class="text-uppercase">Links</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#">Link 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Link 2</a>
+                            </li>
+                            <li class="d-none d-md-flex">
+                                <a href="#">Link 3</a>
+                            </li>
+                            <li class="d-none d-md-flex">
+                                <a href="#">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-md-0 mb-3">
+                        <h5 class="text-uppercase">Links</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#">Link 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Link 2</a>
+                            </li>
+                            <li class="d-none d-md-flex">
+                                <a href="#">Link 3</a>
+                            </li>
+                            <li class="d-none d-md-flex">
+                                <a href="#">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <hr class="clearfix w-100 d-md-none pb-3" />
-                <div class="col-md-3 mb-md-0 mb-3">
-                    <h5 class="text-uppercase">Links</h5>
-                    <ul class="list-unstyled">
-                      <li>
-                        <a href="#!">Link 1</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 2</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 3</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 4</a>
-                      </li>
-                    </ul>
-
-                  </div>
-                  <div class="col-md-3 mb-md-0 mb-3">
-                    <h5 class="text-uppercase">Links</h5>
-                    <ul class="list-unstyled">
-                      <li>
-                        <a href="#!">Link 1</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 2</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 3</a>
-                      </li>
-                      <li>
-                        <a href="#!">Link 4</a>
-                      </li>
-                    </ul>
-                  </div>
-              </div>
+                <div class="row">
+                    <div class="text-center py-3 w-100" style="background-color: royalblue;">© {{ year }} Copyright:
+                        <a class="p-1" href="https://wojciechkur.azurewebsites.net"> Wojciech Kur</a>
+                    </div>
+                </div>
             </div>
-
-            <div class="footer-copyright text-center py-3" style="background-color: royalblue">© {{ year }} Copyright:
-              <a href="https://wojciechkur.azurewebsites.net"> Wojciech Kur</a>
-            </div>
-          </footer>
-  <!-- Footer -->
+      </footer>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -169,15 +170,6 @@
         <!-- Optional JavaScript -->
         <script src="../static/javascript/Default.js"></script>
 
-        <script type=text/javascript>
-            $(document).ready( function() {
-                $('#like-button').click(function() {
-                    $.ajax("{{ url_for('home_controller.add_like') }}").done(function (data) {
-                        $('#like-button').html(" " + data);
-                    });
-                });
-            });
-        </script>
 
     </body>
 </html>

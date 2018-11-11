@@ -1,5 +1,5 @@
 body {
-
+    min-height: 100vh;
 }
 
 .navbar {
@@ -20,7 +20,7 @@ body {
 }
 
 #banner {
-    background: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../images/city.jpg");
+    background-image: url("../images/city.jpg"), linear-gradient(rgba(123, 140, 160, 1), rgba(123, 140, 160, 1));
     background-repeat: repeat-x;
     background-size: contain;
     height: 600px;
@@ -59,28 +59,14 @@ body {
     outline: none;
 }
 
-footer, footer a, footer a:hover {
+.barstyle-cornflake-white, .barstyle-cornflake-white a {
     color: white;
+    background-color: cornflowerblue;
     text-decoration: none;
 }
+
 .col-md-4, .col-md-6, .col-md-3, .col-md-2, .col-md-1, .col-md-5 {
     /*border: 1px solid red;*/
-}
-
-/* From 0 to 992px Device Width */
-@media (max-width: 992px)  {
-
-    #button-sign {
-       display: none !important;
-    }
-    .navbar {
-        height: auto;
-        padding: auto;
-    }
-
-    #banner {
-        display: none;
-    }
 }
 
 /*--- CUSTOM CHECKBOX ---*/
