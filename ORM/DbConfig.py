@@ -7,7 +7,7 @@ Base = declarative_base()
 
 class DbConfig:
     def __init__(self):
-        self.__engine = create_engine('sqlite:///../DB/simple.db')
+        self.__engine = create_engine('sqlite:///simple.db')
         Base.metadata.create_all(self.__engine)
         self.__session = None
 
