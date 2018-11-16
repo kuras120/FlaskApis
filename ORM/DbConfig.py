@@ -14,10 +14,9 @@ class DbConfig:
     def get_engine(self):
         return self.__engine
 
-    def create_session(self):
-        Base.metadata.bind = self.__engine
-        temp = sessionmaker(bind=self.__engine)
-        self.__session = temp()
-
     def get_session(self):
+        if self.__session == None:
+            Base.metadata.bind = self.__engine
+            temp = sessionmaker(bind=self.__engine)
+            self.__session = temp()
         return self.__session

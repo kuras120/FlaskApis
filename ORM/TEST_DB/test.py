@@ -15,7 +15,6 @@ def add_data(session):
 
 if __name__ == "__main__":
     config = DbConfig()
-    config.create_session()
     ses = config.get_session()
 
     add_data(ses)
