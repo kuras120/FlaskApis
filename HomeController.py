@@ -27,3 +27,5 @@ def add_like():
     number = NumberFormat.human_format(likes_counter.get_likes())
     print("Like added")
     return jsonify(number)
+
+#TODO create login route

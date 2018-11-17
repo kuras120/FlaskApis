@@ -1,22 +1,7 @@
+from BLL.UserManager import UserManager
 from ORM.DbConfig import DbConfig
 from ORM.User import User
 from ORM.Data import Data
-
-
-def add_data(session):
-    new_user = User(login="admin", hashed_password="admin", salt="salt")
-    session.add(new_user)
-
-    new_user1 = User(login="admingunwo", hashed_password="admin", salt="salt")
-    session.add(new_user1)
-
-    new_data = Data(name="TSP-GREEDY", key="Warszawa", value="value", user=new_user)
-    session.add(new_data)
-
-    new_data1 = Data(name="TSP-GUNWO", key="Kurwidol", value="value", user=new_user1)
-    session.add(new_data1)
-
-    session.commit()
 
 
 def delete_data(session):
@@ -28,16 +13,48 @@ def delete_data(session):
 if __name__ == "__main__":
     config = DbConfig()
     ses = config.get_session()
+    manager = UserManager(ses)
 
-    add_data(ses)
+    user = manager.add_user("admin", "admin1")
+    data = Data(name="TSP", key=0, value=0, user=user)
+    ses.add(data)
+    data = Data(name="TSP", key=1, value=20, user=user)
+    ses.add(data)
+    data = Data(name="TSP", key=2, value=12, user=user)
+    ses.add(data)
+    data = Data(name="TSP", key=0, value=5, user=user)
+    ses.add(data)
+
+    ses.commit()
+
+    user1 = manager.add_user("admingunwo", "admin1gunwo")
+    data1 = Data(name="TSPGUNWO", key=2, value=0, user=user1)
+    ses.add(data1)
+    data1 = Data(name="TSPGUNWO", key=1, value=17, user=user1)
+    ses.add(data1)
+    data1 = Data(name="TSPGUNWO", key=0, value=40, user=user1)
+    ses.add(data1)
+    data1 = Data(name="TSPGUNWO", key=2, value=4, user=user1)
+    ses.add(data1)
+
+    ses.commit()
+
     for elem in ses.query(User).all():
-        print("User: " + elem.login.__str__())
+        print("\n")
+        cost = 0
+        print("User: " + elem.login.__str__() + ", Password: " + elem.hashed_password.__str__())
         for elem1 in ses.query(Data).filter(Data.user == elem).all():
-            print("TSP: " + elem1.name.__str__() + " city: " + elem1.key)
+            cost += elem1.value
+            print("TSP: " + elem1.name.__str__() + " city: " + elem1.key.__str__())
+        print("Cost of route: " + cost.__str__())
 
     delete_data(ses)
 
     for elem in ses.query(User).all():
+        cost = 0
         print("User: " + elem.login.__str__())
         for elem1 in ses.query(Data).filter(Data.user == elem).all():
-            print("TSP: " + elem1.name.__str__() + " city: " + elem1.key)
+            cost += elem1.value
+            print("TSP: " + elem1.name.__str__() + " city: " + elem1.key.__str__())
+        print("Cost of route: " + cost.__str__())
+
