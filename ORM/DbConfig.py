@@ -1,14 +1,13 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Setup import APP_ROOT
 
 Base = declarative_base()
 
 
 class DbConfig:
     def __init__(self):
-        self.__engine = create_engine('sqlite:///' + APP_ROOT + '/DB/simple.db')
+        self.__engine = create_engine('sqlite:///../DB/simple.db')
         Base.metadata.create_all(self.__engine)
         self.__session = None
 

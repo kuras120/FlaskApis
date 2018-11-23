@@ -1,6 +1,6 @@
 import os
 from enum import Enum
-from Setup import APP_DICT
+from Main import APP_DICT
 
 
 class Method(Enum):
