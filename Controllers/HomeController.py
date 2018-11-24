@@ -9,7 +9,7 @@ from Utilities.PropertiesReader import PropertiesReader, Method
 home_controller = Blueprint('home_controller', __name__)
 
 likes_counter = Counter(990)
-data = PropertiesReader("feedback_index.properties")
+data = PropertiesReader("Controllers/static/dictionary/feedback_index.properties")
 
 
 @home_controller.route('/')

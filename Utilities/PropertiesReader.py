@@ -1,6 +1,5 @@
 import os
 from enum import Enum
-from Main import APP_DICT
 
 
 class Method(Enum):
@@ -11,7 +10,7 @@ class Method(Enum):
 
 class PropertiesReader:
     def __init__(self, file):
-        self.__file = os.path.join(APP_DICT, file)
+        self.__file = file
         self.__dict_properties = {}
 
     def read(self, key, method=Method.Automatic):
