@@ -1,5 +1,5 @@
-import os
 from enum import Enum
+import logging
 
 
 class Method(Enum):
@@ -12,19 +12,22 @@ class PropertiesReader:
     def __init__(self, file):
         self.__file = file
         self.__dict_properties = {}
+        self.__logger = logging.getLogger('base_logger')
 
     def read(self, key, method=Method.Automatic):
         if method == Method.Automatic:
             if key in self.__dict_properties:
+                self.__logger.info("Key was found in local storage.")
                 return self.__dict_properties[key]
             else:
+                self.__logger.info("Finding key in properties file...")
                 return self.__read_from_source(key)
 
         elif method == Method.Manual_dictionary:
             if key in self.__dict_properties:
                 return self.__dict_properties[key]
             else:
-                raise Exception("Data with specific key doesn't exist")
+                self.__logger.error("Data with specific key doesn't exist")
 
         elif method == Method.Manual_properties:
             return self.__read_from_source(key)
@@ -35,15 +38,14 @@ class PropertiesReader:
         for line in properties:
             if "key" in line:
                 temp = line.strip().split("=")
-                print(temp)
                 if temp[1] == key:
                     found = True
-                    print("key was found")
+                    self.__logger.info("Key was found")
                     break
         if found:
             return self.__read_key_source(key, properties)
         else:
-            raise Exception("Questionnaire data cannot be found")
+            self.__logger.error("Questionnaire data cannot be found")
 
     def __read_key_source(self, key, properties):
         new_dict = []
