@@ -1,25 +1,11 @@
 
 
 class Counter:
-    __instance = None
-
-    @staticmethod
-    def get_instance():
-        if Counter.__instance is None:
-            Counter()
-        return Counter.__instance
-
-    def __init__(self):
-        if Counter.__instance is not None:
-            raise Exception("This class is a singleton!")
-        else:
-            '''INIT LIST'''
-            self.__likes = 2500
-
-            Counter.__instance = self
+    def __init__(self, init_value=0):
+        self.__data_to_count = init_value
 
     def add_like(self):
-        self.__likes += 1
+        self.__data_to_count += 1
 
     def get_likes(self):
-        return self.__likes
+        return self.__data_to_count
