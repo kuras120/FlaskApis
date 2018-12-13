@@ -26,6 +26,7 @@ def add_like():
     likes_counter.add_like()
     print("Like added")
     current_number = likes_counter.get_likes()
+    print("Current number: " + current_number.__str__())
     number = NumberFormat.human_format(current_number)
     return jsonify(number)
 

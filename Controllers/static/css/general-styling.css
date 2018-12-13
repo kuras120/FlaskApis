@@ -20,8 +20,7 @@ body {
 }
 
 #banner {
-    background-image: url("../images/city.jpg"), linear-gradient(rgba(123, 140, 160, 1), rgba(123, 140, 160, 1));
-    background-repeat: repeat-x;
+    background: url("../images/city.jpg"), linear-gradient(rgba(123, 140, 160, 1), rgba(123, 140, 160, 1)) repeat-x;
     background-size: contain;
     height: 600px;
     filter: brightness(100%);
