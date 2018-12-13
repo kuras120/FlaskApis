@@ -21,11 +21,12 @@ def index():
     return render_template('index.html', date=current_date, likes=number, question_data=complete_data, year=current_year)
 
 
-@home_controller.route('/add_like/')
+@home_controller.route('/add_like', methods=['POST'])
 def add_like():
     likes_counter.add_like()
-    number = NumberFormat.human_format(likes_counter.get_likes())
     print("Like added")
+    current_number = likes_counter.get_likes()
+    number = NumberFormat.human_format(current_number)
     return jsonify(number)
 
-#TODO create login route
+# TODO create login route
