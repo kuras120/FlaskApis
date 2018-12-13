@@ -15,7 +15,9 @@ data = PropertiesReader("Controllers/static/dictionary/feedback_index.properties
 @home_controller.route('/')
 def index():
     current_date = datetime.datetime.now().date().strftime("%B %d, %Y")
-    number = NumberFormat.human_format(likes_counter.get_likes())
+    likes_number = likes_counter.get_likes()
+    print("Number of likes: " + likes_number.__str__())
+    number = NumberFormat.human_format(likes_number)
     complete_data = data.read("key1", Method.Manual_properties)
     current_year = datetime.datetime.now().year.__str__()
     return render_template('index.html', date=current_date, likes=number, question_data=complete_data, year=current_year)
