@@ -20,8 +20,7 @@ body {
 }
 
 #banner {
-    background-image: url("../images/city.jpg"), linear-gradient(rgba(123, 140, 160, 1), rgba(123, 140, 160, 1));
-    background-repeat: repeat-x;
+    background: url("../images/city.jpg"), linear-gradient(rgba(123, 140, 160, 1), rgba(123, 140, 160, 1)) repeat-x;
     background-size: contain;
     height: 600px;
     filter: brightness(100%);
@@ -65,10 +64,6 @@ body {
     text-decoration: none;
 }
 
-.col-md-4, .col-md-6, .col-md-3, .col-md-2, .col-md-1, .col-md-5 {
-    /*border: 1px solid red;*/
-}
-
 /*--- CUSTOM CHECKBOX ---*/
 
 /* The container */
@@ -79,9 +74,6 @@ body {
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 15px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
