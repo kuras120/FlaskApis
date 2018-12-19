@@ -12,4 +12,4 @@ $(document).ready( function() {
     });
 });
 
-//TODO check user by ajax
+//TODO: check user by ajax

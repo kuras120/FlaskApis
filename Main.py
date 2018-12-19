@@ -1,4 +1,4 @@
-from Controllers.MainController import app
+from Controllers.Initializer import app
 
 
 if __name__ == '__main__':

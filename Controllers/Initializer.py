@@ -1,5 +1,5 @@
-from flask import Flask
 from Controllers.HomeController import *
+from flask import Flask
 import logging
 
 app = Flask(__name__)
@@ -21,7 +21,4 @@ ch.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(ch)
 
-logger.info("--------------START-APP--------------")
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+logger.info('--------------START-APP--------------')
