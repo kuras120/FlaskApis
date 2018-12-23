@@ -10,9 +10,10 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main-styles.css') }}">
         <!--favicon-->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
     </head>
     <body class="d-flex flex-column">
         <!-- Modal -->
@@ -50,7 +51,7 @@
             </div>
         </div>
         <!-- NAVBAR DESKTOP/TABLET -->
-        <nav class="navbar d-none d-lg-flex fixed-top navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar d-none d-md-flex fixed-top navbar-expand-md navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">LOGO</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,34 +65,33 @@
                     </ul>
                 </div>
             </div>
-            <div id="button-sign" class="d-none d-lg-flex align-items-center justify-content-center h-100" >
+            <div id="button-start" class="d-none d-md-flex align-items-center justify-content-center h-100" >
                 LET'S START!
             </div>
         </nav>
         <!-- NAVBAR MOBILE -->
-        <nav class="navbar d-lg-none fixed-top navbar-light bg-light">
-            <div class="container-fluid d-flex justify-content-center h-100 barstyle-cornflake-white" data-toggle="modal" data-target="#loginModal">
+        <nav class="navbar d-md-none fixed-top navbar-light bg-light">
+            <div id="button-mobile" class="container-fluid d-flex justify-content-center h-100" data-toggle="modal" data-target="#loginModal">
                 <h5>TAP TO START</h5>
             </div>
         </nav>
         <!-- CONTENT -->
-        <div class="container-fluid d-flex flex-column flex-grow-1 pt-5 pt-md-0">
-            <div id="banner" class="row d-none d-lg-flex">
+        <div class="container-fluid d-flex flex-column flex-grow-1">
+            <div id="banner" class="row d-none d-md-flex">
                 <div class="col-12">
-                    <div class="row h-25"></div>
-                    <div class="row h-25">
+                    <div class="row h-25 align-items-end">
                         <div class="col-md-4 d-flex justify-content-start p-4">
                             <span class="font-weight-bold" style="color: royalblue;">Today is &nbsp;</span>
                             <span style="color: cornflowerblue;">{{ date }}</span>
                         </div>
                         <div class="col-md-4 offset-md-4 d-flex justify-content-end p-4 text-center">
-                            <i id="like-button" class="fas fa-heart on-hover p-2 m-1"> {{ likes }}</i>
-                            <i class="fab fa-facebook-square fa-2x on-hover p-1"></i>
-                            <i class="fab fa-twitter-square fa-2x on-hover p-1"></i>
+                            <i id="like-button" class="fas fa-heart p-2 m-1"> {{ likes }}</i>
+                            <i class="fab fa-facebook-square fa-2x p-1"></i>
+                            <i class="fab fa-twitter-square fa-2x p-1"></i>
                         </div>
                     </div>
-                    <div class="row h-25">
-                        <div class="col-md-6 offset-md-3">
+                    <div class="row h-25 align-items-start">
+                        <div class="col-md-8 offset-md-2">
                             <h3 class="d-flex justify-content-center font-weight-bold" style="color: royalblue;">
                                 Welcome in custom template!
                             </h3>
@@ -105,58 +105,59 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row h-25">
+                    <div class="row h-25 align-items-end">
                         <div class="col-md-3">
-
+                            <h6 class="d-flex justify-content-start">placeholder</h6>
                         </div>
                         <div class="col-md-3 offset-md-6">
-
+                            <h6 class="d-flex justify-content-end">placeholder</h6>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row flex-grow-1 py-5">
-                <div class="col-12 d-flex align-items-center justify-content-center">
-                    <div class="row w-100">
-                        <div class="col-12 col-lg-6 text-info text-center">
-                            <h5>If you want to help us improve product, please fill in the form.</h5>
-                            <hr class="clearfix w-100 pb-3" />
-                        </div>
-                        <div class="col-12 offset-0 col-sm-8 offset-sm-2 col-lg-6 offset-lg-0">
-                            <form>
-                                {% for item in question_data %}
-                                <div class="d-block font-weight-bold text-justify text-md-left">
-                                    <h5>{{ item[0] }}</h5>
-                                </div>
-                                <!-- <div class="d-block"> -->
-                                <div class="btn-group btn-group-toggle d-block" data-toggle="buttons">
-                                    {% for elem in item[1] %}
-                                        {% if loop.index == 1 %}
-                                        <label class="btn btn-secondary active">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked> {{ elem }}
-                                        </label>
-                                        {% else %}
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off"> {{ elem }}
-                                        </label>
-                                        {% endif %}
-                                    <!-- <div class="form-check form-check-inline py-2">
-                                        <label class="checkbox-container">{{ elem }}
-                                            <input class="form-check-input" type="checkbox">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div> -->
-                                    {% endfor %}
-                                </div>
-                                {% endfor %}
-                            </form>
-                        </div>
-                    </div>
+            <div id="sub-menu" class="row ">
+                <ul class="col-12 list-inline d-flex align-items-center justify-content-center">
+                  <li class="list-inline-item"><h4><a href="#">Register</a></h4></li>
+                    <li class="list-inline-item"><h4><a href="#">Create</a></h4></li>
+                    <li class="list-inline-item"><h4><a href="#">View</a></h4></li>
+                </ul>
+            </div>
+            <div class="flex-grow-1 row">
+                <div id="internal-survey"
+                     class="col-12 py-lg-5 d-flex align-items-center justify-content-center">
+                    <ul class="list-group list-group-flush">
+                        {% for item in question_data %}
+                        <li class="list-group-item">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <div class="d-block font-weight-bold text-justify">
+                                        <h5>{{ item[0] }}</h5>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="btn-group btn-group-toggle d-block" data-toggle="buttons">
+                                        {% for elem in item[1] %}
+                                            {% if loop.index == 1 %}
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="options" autocomplete="off"> {{ elem }}
+                                            </label>
+                                            {% else %}
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="options" autocomplete="off"> {{ elem }}
+                                            </label>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
         <!-- FOOTER -->
-        <footer class="pt-4 barstyle-cornflake-white">
+        <footer class="pt-4">
             <div class="container-fluid text-center text-md-left">
                 <div class="row">
                     <div class="col-md-6 mt-md-0 mt-3">
@@ -200,7 +201,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="text-center py-3 w-100" style="background-color: royalblue;">© {{ year }} Copyright:
+                    <div class="text-center py-3 w-100" style="background-color: #4169E1;">© {{ year }} Copyright:
                         <a class="p-1" href="https://wojciechkur.azurewebsites.net"> Wojciech Kur</a>
                     </div>
                 </div>
@@ -211,6 +212,32 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
+        <!-- AOS -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                  // Global settings:
+                  disable: 'mobile', // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+                  startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
+                  initClassName: 'aos-init', // class applied after initialization
+                  animatedClassName: 'aos-animate', // class applied on animation
+                  useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+                  disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+                  debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+                  throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+
+
+                  // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+                  offset: 400, // offset (in px) from the original trigger point
+                  delay: 0, // values from 0 to 3000, with step 50ms
+                  duration: 600, // values from 0 to 3000, with step 50ms
+                  easing: 'ease', // default easing for AOS animations
+                  once: false, // whether animation should happen only once - while scrolling down
+                  mirror: false, // whether elements should animate out while scrolling past them
+                  anchorPlacement: 'top-bottom' // defines which position of the element regarding to window should trigger the animation
+
+            });
+        </script>
         <!-- Optional JavaScript -->
         <script src="../static/javascript/MainPageFunctions.js"></script>
 

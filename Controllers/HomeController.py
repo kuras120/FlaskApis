@@ -29,6 +29,7 @@ def add_like():
     number = NumberFormat.human_format(likes_counter.get_likes())
     return jsonify(number)
 
+
 # TODO: create login
 @home_controller.route('/login_process', methods=['POST'])
 def login_process():

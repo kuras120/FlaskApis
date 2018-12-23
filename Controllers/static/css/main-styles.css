@@ -1,28 +1,36 @@
 body {
     min-height: 100vh;
+    padding-top: 80px;
 }
 
+/* NAVIGATION */
 .navbar {
     height: 80px;
     padding: 0;
 }
 
-#button-sign {
+#button-start {
     width: 200px;
-    color: lightgrey;
+    color: white;
     background: cornflowerblue;
     transition: all 300ms linear;
 }
 
-#button-sign:hover {
+#button-start:hover {
     background: royalblue;
     cursor: pointer;
 }
 
+#button-mobile {
+    color: white;
+    background-color: #4b71e1;
+}
+
+/* FIRST IMPRESSION */
 #banner {
     background: url("../images/city.jpg"), linear-gradient(rgba(123, 140, 160, 1), rgba(123, 140, 160, 1)) repeat-x;
-    background-size: contain;
-    height: 600px;
+    background-size: 100% 100%;
+    height: 500px;
     filter: brightness(100%);
     transition: all 300ms linear;
 }
@@ -39,94 +47,46 @@ body {
     border: 2px solid dodgerblue;
 }
 
+#banner i {
+    color: cornflowerblue;
+    border-color: cornflowerblue;
+    transition: all 200ms linear;
+}
+
+#banner i:not(:focus):hover {
+    color: royalblue;
+    border-color: royalblue;
+}
+
+#banner i:focus {
+    outline: none;
+}
+
 #like-button {
     border: 2px solid;
     border-radius: 18px;
     height: 35px;
 }
 
-.on-hover {
-    color: cornflowerblue;
-    border-color: cornflowerblue;
-    transition: all 200ms linear;
-}
-.on-hover:not(:focus):hover {
-    color: royalblue;
-    border-color: royalblue;
-}
-.on-hover:focus {
-    outline: none;
+#sub-menu ul {
+    margin: 0 !important;
+    padding: 5px 0 5px 0;
 }
 
-.barstyle-cornflake-white, .barstyle-cornflake-white a {
+#sub-menu li:not(:first-child) {
+    padding-left: .5rem;
+    border-left: 1px solid #000;
+}
+
+footer {
     color: white;
-    background-color: cornflowerblue;
-    text-decoration: none;
+    background-color: #4b71e1;
 }
 
-/*--- CUSTOM CHECKBOX ---*/
-
-/* The container */
-.checkbox-container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 15px;
-    user-select: none;
+footer a {
+    color: white;
 }
 
-/* Hide the browser's default checkbox */
-.checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.checkbox-container:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.checkbox-container input:checked ~ .checkmark {
-    background-color: #2196F3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.checkbox-container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.checkbox-container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+footer a:hover {
+    color: lightgrey;
 }

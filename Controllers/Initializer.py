@@ -20,5 +20,3 @@ ch.setFormatter(formatter)
 
 logger.addHandler(fh)
 logger.addHandler(ch)
-
-logger.info('--------------START-APP--------------')
