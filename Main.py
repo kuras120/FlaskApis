@@ -1,5 +1,4 @@
-from Controllers.Initializer import app
-
+from Controllers import app
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()

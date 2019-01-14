@@ -27,7 +27,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url_for('home_controller.login_process') }}" method="POST">
+                    <form method="POST">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
                             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -212,32 +212,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
-        <!-- AOS -->
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script>
-            AOS.init({
-                  // Global settings:
-                  disable: 'mobile', // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
-                  startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
-                  initClassName: 'aos-init', // class applied after initialization
-                  animatedClassName: 'aos-animate', // class applied on animation
-                  useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
-                  disableMutationObserver: false, // disables automatic mutations' detections (advanced)
-                  debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
-                  throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
 
-
-                  // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
-                  offset: 400, // offset (in px) from the original trigger point
-                  delay: 0, // values from 0 to 3000, with step 50ms
-                  duration: 600, // values from 0 to 3000, with step 50ms
-                  easing: 'ease', // default easing for AOS animations
-                  once: false, // whether animation should happen only once - while scrolling down
-                  mirror: false, // whether elements should animate out while scrolling past them
-                  anchorPlacement: 'top-bottom' // defines which position of the element regarding to window should trigger the animation
-
-            });
-        </script>
         <!-- Optional JavaScript -->
         <script src="../static/javascript/MainPageFunctions.js"></script>
 

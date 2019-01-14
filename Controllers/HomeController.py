@@ -1,14 +1,13 @@
-from flask import render_template, jsonify, json, Blueprint, request
+from Utilities.PropertiesReader import PropertiesReader
+from flask import render_template, jsonify, request
+from Utilities.NumberFormat import NumberFormat
+from Utilities.Counter import Counter
+from flask import Blueprint
 import datetime
 import logging
 
-from Utilities.Counter import Counter
-from Utilities.NumberFormat import NumberFormat
-from Utilities.PropertiesReader import PropertiesReader, Method
-
-home_controller = Blueprint('home_controller', __name__)
-
 data = PropertiesReader('Controllers/static/dictionary/feedback_index.properties')
+home_controller = Blueprint('home_controller', __name__)
 logger = logging.getLogger('base_logger')
 likes_counter = Counter(990)
 
@@ -18,7 +17,6 @@ def index():
 	current_date = datetime.datetime.now().date().strftime('%B %d, %Y')
 	number = NumberFormat.human_format(likes_counter.get_likes())
 	complete_data = data.read('key1')
-	print("Hello world")
 	current_year = datetime.datetime.now().year.__str__()
 	return render_template('index.html', date=current_date, likes=number, question_data=complete_data, year=current_year)
 
