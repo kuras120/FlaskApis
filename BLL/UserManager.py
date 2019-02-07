@@ -23,7 +23,7 @@ class UserManager:
     def check_user(self, login, password):
         user = self.__session.query(User).filter(User.login == login).first()
         if user:
-            hash_password = self.__convert_password(user.salt, password)
+            hash_password = hashlib.sha512(password.encode('utf-8') + user.salt.encode('utf-8')).hexdigest()
             if user.hashed_password == hash_password:
                 return user
             else:
@@ -31,6 +31,3 @@ class UserManager:
         else:
             raise Exception("Cannot find user.")
 
-    @staticmethod
-    def __convert_password(salt, password):
-        return hashlib.sha512(password.encode('utf-8') + salt.encode('utf-8')).hexdigest()
