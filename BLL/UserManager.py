@@ -1,10 +1,13 @@
-from ORM.User import User
+import logging
 import hashlib
 import uuid
+
+from ORM.User import User
 
 
 class UserManager:
     def __init__(self, session):
+        self.__logger = logging.getLogger('logger')
         self.__session = session
 
     def add_user(self, login, password):
@@ -19,9 +22,15 @@ class UserManager:
 
     def check_user(self, login, password):
         user = self.__session.query(User).filter(User.login == login).first()
-        hash_password = hashlib.sha512(password.encode('utf-8') + user.salt).hexdigest()
-        if user.hashed_password == hash_password:
-            return user
+        if user:
+            hash_password = self.__convert_password(user.salt, password)
+            if user.hashed_password == hash_password:
+                return user
+            else:
+                raise Exception("Wrong password.")
         else:
-            return None
+            raise Exception("Cannot find user.")
 
+    @staticmethod
+    def __convert_password(salt, password):
+        return hashlib.sha512(password.encode('utf-8') + salt.encode('utf-8')).hexdigest()

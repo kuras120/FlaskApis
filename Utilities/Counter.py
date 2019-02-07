@@ -1,5 +1,3 @@
-
-
 class Counter:
     def __init__(self, init_value=0):
         self.__data_to_count = init_value
