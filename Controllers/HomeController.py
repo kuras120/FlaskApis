@@ -5,8 +5,6 @@ import traceback
 from flask import Blueprint
 from flask import render_template, jsonify, request
 
-from ORM.DbConfig import DbConfig
-
 from BLL.UserManager import UserManager
 
 from Utilities.Counter import Counter
@@ -14,10 +12,11 @@ from Utilities.NumberFormat import NumberFormat
 from Utilities.PropertiesReader import PropertiesReader
 
 logger = logging.getLogger('logger')
+error_logger = logging.getLogger('error_logger')
+
 home_controller = Blueprint('home_controller', __name__)
 data = PropertiesReader('Controllers/static/dictionary/feedback_index.properties')
 
-db = DbConfig()
 likes_counter = Counter(990)
 
 
@@ -42,16 +41,16 @@ def add_like():
 @home_controller.route('/user/panel', methods=['POST'])
 def login_process():
     try:
-        manager = UserManager(db.get_session())
         login = request.form['email']
         password = request.form['password']
-        user = manager.check_user(login, password)
+        user = UserManager.check_user(login, password)
         logger.info("User " + user.login + " signed in.")
         return render_template('userPanel.html', user=user.login)
 
     except Exception as e:
-        tb = traceback.format_exc(limit=-1)
-        logger.error(e.__str__() + "\n" + tb.__str__())
+        tb = traceback.format_exc()
+        error_logger.error(tb.__str__())
+        logger.error(e.__str__())
         return render_template('error.html', error='Incorrect login data.')
 
 # TODO Partial view (widget)
