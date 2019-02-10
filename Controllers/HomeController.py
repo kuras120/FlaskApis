@@ -53,4 +53,4 @@ def login_process():
         logger.error(e.__str__())
         return render_template('error.html', error='Incorrect login data.')
 
-# TODO Partial view (widget)
+# TODO Tokeny autoryzacyjne

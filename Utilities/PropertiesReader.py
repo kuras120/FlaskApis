@@ -65,7 +65,6 @@ class PropertiesReader:
                 return self.__read_key_source(key, values)
         self.__logger.error('Questionnaire data cannot be found.')
 
-    # TODO Podzielic properties na keye i reszte!
     def __read_key_source(self, key, properties):
         new_dict = []
         question, answers = [], []

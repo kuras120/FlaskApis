@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Panel</title>
-</head>
-<body>
+{% extends 'shared/base.html' %}
+{% block title %}Account{% endblock %}
+{% block content %}
     You're logged as {{ user }}
-</body>
-</html>
+{% endblock %}
