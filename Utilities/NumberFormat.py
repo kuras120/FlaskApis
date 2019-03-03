@@ -1,5 +1,3 @@
-
-
 class NumberFormat:
     @staticmethod
     def human_format(num):
