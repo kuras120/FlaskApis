@@ -30,12 +30,12 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                             </div>
                             <div class="form-group form-check">
                                 <input type="checkbox" class="form-check-input" id="rememberMe">
@@ -59,9 +59,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"> <span>REGISTER / LOG IN</span> <span class="sr-only">(current)</span></a>
-                        </li>
+                        {% if session['auth_token'] %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ '/account' }}">LOGGED AS {{ session['username'] }}</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ '/logout' }}">SIGN OUT<span class="sr-only">(current)</span></a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"> <span>SIGN UP / SIGN IN</span> <span class="sr-only">(current)</span></a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

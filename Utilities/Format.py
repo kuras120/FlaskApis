@@ -1,4 +1,4 @@
-class NumberFormat:
+class Format:
     @staticmethod
     def human_format(num):
         num = float('{:.3g}'.format(num))
