@@ -4,22 +4,29 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
 from ORM.DbConfig import Base
+from enum import Enum
 
 
-class Data(Base):
-    __tablename__ = "Data"
+class TypeH(Enum):
+    Info = 0
+    Warning = 1
+    Error = 2
+
+
+class History(Base):
+    __tablename__ = "History"
     id = Column(Integer, primary_key=True)
-    file_name = Column(String, nullable=False)
-    file_path = Column(String, nullable=False)
+    type_h = Column(Integer, nullable=False)
+    description = Column(String, nullable=False)
     added_on = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("Users.id"))
     user = relationship("User")
 
-    def __init__(self, file_name, file_path, user_id):
-        self.file_name = file_name
-        self.file_path = file_path
+    def __init__(self, type_h, description, user_id):
+        self.type = type_h
+        self.description = description
         self.added_on = datetime.now()
         self.user_id = user_id
 
     def __repr__(self):
-        return '<File %s>' % self.file_name
+        return '<%s: %s>' % (self.type_h, self.description)

@@ -5,7 +5,9 @@ from flask import Flask
 
 from HomeController import home_controller
 from UserController import user_controller
+
 from ORM.DbConfig import init_db, db_session
+from BLL.UserManager import UserManager
 
 
 # -- LOGGERS -- #
@@ -45,15 +47,17 @@ app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
 # Bind controllers
 app.register_blueprint(home_controller, url_prefix='/')
 app.register_blueprint(user_controller, url_prefix='/account')
-main_logger.info("Blueprints created.")
+main_logger.info('Blueprints created.')
 
 # Init database
 init_db()
-main_logger.info("Db initialized.")
+main_logger.info('Db initialized.')
+
+UserManager.add_user('admin@gmail.com', 'admin1')
+UserManager.add_user('user@gmail.com', 'user1')
 
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
 
-# TODO logger tylko do najwazniejszych operacji. Zamiast niego historia do bazy danych.
