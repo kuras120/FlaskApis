@@ -20,7 +20,7 @@ class Authentication:
                 algorithm='HS256'
             )
         except Exception as e:
-            logging.getLogger('error_logger').error(e)
+            logging.getLogger('error_logger').exception(e)
             return Exception('User cannot be logged in. Please, contact with support.')
 
     @staticmethod

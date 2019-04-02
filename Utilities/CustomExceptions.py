@@ -1,5 +1,4 @@
 
-
 class UserException(Exception):
     def __init__(self, message='Wrong username or password.'):
         super(Exception, self).__init__(message)
