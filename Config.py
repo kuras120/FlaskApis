@@ -1,6 +1,8 @@
 import logging
 
 from BLL.UserManager import UserManager
+from ORM.DbConfig import db_session
+from ORM.User import User
 
 
 class Config:
@@ -37,11 +39,22 @@ class Config:
     @staticmethod
     def init_debug():
         try:
+            db_session.query(User).delete()
+        except Exception as e:
+            print('Error: ' + e.__str__())
+        try:
+            # Create users
             UserManager.create_user('admin@gmail.com', 'admin1')
             UserManager.create_user('user@gmail.com', 'user1')
             print('Test accounts added.')
+
+            # Update user admin
+            usr = UserManager.get_user(2)
+            usr.login = 'eladminos@gmail.com'
+            usr.password = 'eladminos1'
+            UserManager.update_user(usr)
+
         except Exception as e:
             print('Error: ' + e.__str__())
-            print('Test accounts already added.')
 
 
