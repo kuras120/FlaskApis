@@ -51,7 +51,7 @@ class Config:
             # Update user admin
             usr = UserManager.get_user(2)
             usr.login = 'eladminos@gmail.com'
-            usr.password = 'eladminos1'
+            usr.hashed_password = 'eladminos1'
             UserManager.update_user(usr)
 
         except Exception as e:
