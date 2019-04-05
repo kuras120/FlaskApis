@@ -3,10 +3,10 @@ import logging
 
 from ORM import db
 from ORM.User import User
-from BLL.UserManager import UserManager
+from DAL.UserManager import UserManager
 
-from HomeController import home_controller
-from UserController import user_controller
+from Controllers.HomeController import home_controller
+from Controllers.UserController import user_controller
 
 
 def bind_blueprints(app):

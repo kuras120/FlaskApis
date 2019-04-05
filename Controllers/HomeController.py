@@ -1,16 +1,16 @@
 import datetime
 
-from flask import Blueprint, render_template, jsonify, request, session, redirect, url_for, current_app
+from flask import render_template, jsonify, request, session, redirect, url_for, current_app
 
 from Utilities.PropertiesReader import PropertiesReader
 from Utilities.Authentication import Authentication
-from BLL.UserManager import UserManager
+from Controllers import home_controller
+from DAL.UserManager import UserManager
 from Utilities.Counter import Counter
 from Utilities.Format import Format
 
-home_controller = Blueprint('home_controller', __name__)
-data = PropertiesReader('static/dictionary/feedback_index.properties')
 
+survey = PropertiesReader('static/dictionary/feedback_index.properties')
 # TODO Refactor required https://stackoverflow.com/a/23417696
 likes_counter = Counter(990)
 
@@ -19,9 +19,9 @@ likes_counter = Counter(990)
 @home_controller.route('/<error>')
 def index(error):
     current_date = datetime.datetime.now().date().strftime('%B %d, %Y')
-    number = Format.human_format(likes_counter.get())
-    complete_data = data.read('key1')
+    likes = Format.human_format(likes_counter.get())
     current_year = datetime.datetime.now().year.__str__()
+    question_data = survey.read('key1')
     login = None
     if 'auth_token' in session:
         error = None
@@ -32,8 +32,8 @@ def index(error):
             session.pop('auth_token', None)
             return redirect(url_for('home_controller.index', error=e))
 
-    return render_template('index.html', date=current_date, likes=number, question_data=complete_data,
-                           year=current_year, user=login, error=error)
+    return render_template('index.html', date=current_date, year=current_year, user=login, likes=likes,
+                           question_data=question_data, error=error)
 
 
 @home_controller.route('/add_like', methods=['POST'])
