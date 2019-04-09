@@ -1,6 +1,7 @@
 body {
     min-height: 100vh;
     padding-top: 80px;
+    background-color: #7a8b9f;
 }
 
 .alert {
@@ -39,7 +40,6 @@ body {
 }
 
 #banner:hover {
-    filter: brightness(90%);
     cursor: pointer;
 }
 
@@ -79,6 +79,10 @@ body {
 #sub-menu li:not(:first-child) {
     padding-left: .5rem;
     border-left: 1px solid #000;
+}
+
+.list-group-item {
+    background-color: #7a8b9f;
 }
 
 footer {
