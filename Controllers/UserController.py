@@ -4,7 +4,7 @@ from flask import render_template, session, redirect, url_for, current_app, json
 
 from Utilities.Authentication import Authentication
 from Controllers import user_controller
-from DAL.UserManager import UserManager
+from DAL.UserDAO import UserDAO
 
 
 @user_controller.route('/')
@@ -12,7 +12,7 @@ def index():
     if 'auth_token' in session:
         try:
             user_id = Authentication.decode_auth_token(current_app.config['SECRET_KEY'], session['auth_token'])
-            login = UserManager.get_user(user_id).login.split('@')[0]
+            login = UserDAO.get_user(user_id).login.split('@')[0]
             current_year = datetime.datetime.now().year.__str__()
             return render_template('userPanel.html', user=login, year=current_year)
         except Exception as e:

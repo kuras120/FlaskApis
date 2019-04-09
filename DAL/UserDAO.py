@@ -7,7 +7,7 @@ from ORM.User import User
 from Utilities.CustomExceptions import UserException, DatabaseException
 
 
-class UserManager:
+class UserDAO:
     @staticmethod
     def create_user(login, password):
         try:
