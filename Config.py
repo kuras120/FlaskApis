@@ -74,8 +74,8 @@ def init_debug():
         db.session.query(User).delete()
 
         # Add users
-        UserDAO.create_user('admin@gmail.com', 'admin1')
-        UserDAO.create_user('user@gmail.com', 'user1')
+        UserDAO.create('admin@gmail.com', 'admin1')
+        UserDAO.create('user@gmail.com', 'user1')
 
     except Exception as e:
         print('Error: ' + e.__str__())
