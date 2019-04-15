@@ -3,6 +3,7 @@ import hashlib
 from datetime import datetime
 
 from ORM import db
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, DateTime
 
 
@@ -14,6 +15,8 @@ class User(db.Model):
     salt = Column(String, nullable=False)
     created_on = Column(DateTime, nullable=False)
     last_login = Column(DateTime, nullable=True)
+    data = relationship("Data", cascade="all, delete-orphan")
+    history = relationship("History", cascade="all, delete-orphan")
 
     def __init__(self, login, password):
         self.login = login
