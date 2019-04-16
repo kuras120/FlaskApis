@@ -2,13 +2,10 @@ import os
 import logging
 
 from ORM import db
-from ORM.User import User
-from ORM.Data import Data
 
 from dotenv import load_dotenv
 
 from DAL.UserDAO import UserDAO
-from DAL.DataDAO import DataDAO
 
 from Controllers.HomeController import home_controller
 from Controllers.UserController import user_controller
@@ -39,8 +36,8 @@ def init_db(app):
     db.init_app(app)
     db.create_all()
 
-    if not os.path.isdir('DATA'):
-        os.makedirs('DATA')
+    if not os.path.isdir('static/DATA'):
+        os.makedirs('static/DATA')
         print('DATA folder created.')
 
 
@@ -77,17 +74,14 @@ def init_loggers():
 
 def init_debug():
     try:
-        UserDAO.delete_all(UserDAO.get_all())
+        print('Debug data initialization...')
+        print(UserDAO.delete_all(UserDAO.get_all()))
         # Add users
-        user1 = UserDAO.create('admin@gmail.com', 'admin1')
-        user2 = UserDAO.create('user@gmail.com', 'user1')
+        UserDAO.create('admin@gmail.com', 'admin1')
+        UserDAO.create('user@gmail.com', 'user1')
+        print('New data created.')
 
-        user1.login = 'eladminos@gmail.com'
-        user1.hashed_password = 'eladminos1'
-        UserDAO.update(user1)
-
-        UserDAO.delete(user2)
-
-        DataDAO.create('testfile.txt', user1)
+        print('Initialization completed.')
     except Exception as e:
+        db.session.rollback()
         print('Error: ' + e.__str__())

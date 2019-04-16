@@ -1,6 +1,6 @@
 
 class UserException(Exception):
-    def __init__(self, message='User doesn\'t exists.'):
+    def __init__(self, message='Account error, please log in again.'):
         super(Exception, self).__init__(message)
 
 

@@ -3,7 +3,6 @@ import hashlib
 from ORM import db
 from datetime import datetime
 
-
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 
 
@@ -15,9 +14,10 @@ class Data(db.Model):
     added_on = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("Users.id"))
 
-    def __init__(self, file_name, user_name):
+    def __init__(self, file_name, login):
         self.file_name = file_name
-        self.file_path = "DATA/" + hashlib.sha3_512(user_name.__str__().encode('utf-8')).hexdigest() + "/" + file_name
+        self.file_path = hashlib.sha3_256(login.__str__().encode('utf-8')).hexdigest() + "/" + hashlib.\
+            sha3_256(file_name.__str__().encode('utf-8')).hexdigest()
         self.added_on = datetime.now()
 
     def __repr__(self):

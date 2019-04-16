@@ -1,7 +1,9 @@
+import os
 import logging
 
 from ORM import db
 from ORM.Data import Data
+from ORM.History import History, TypeH
 
 from Utilities.CustomExceptions import UserException, DatabaseException
 
@@ -11,10 +13,15 @@ class DataDAO:
     def create(file_name, user):
         try:
             if not db.session.query(Data).filter(Data.file_name == file_name, Data.user_id == user.id).first():
-                new_data = Data(file_name=file_name, user_name=user.login)
+                new_data = Data(file_name=file_name, login=user.login)
                 user.data.append(new_data)
+                h_log = History(type_h=TypeH.Info, description='File ' + new_data.file_name + ' added')
+                user.history.append(h_log)
                 db.session.merge(user)
                 db.session.commit()
+                if not os.path.isdir(os.path.dirname('static/DATA/' + new_data.file_path)):
+                    os.makedirs(os.path.dirname('static/DATA/' + new_data.file_path))
+                open('static/DATA/' + new_data.file_path, 'w+').close()
                 return new_data
         except Exception as e:
             db.session.rollback()
@@ -39,10 +46,13 @@ class DataDAO:
             raise UserException()
 
     @staticmethod
-    def update(data):
-        if data:
+    def update(data, user, info):
+        if data and user:
             try:
                 db.session.merge(data)
+                h_log = History(type_h=TypeH.Info, description=info)
+                user.history.append(h_log)
+                db.session.merge(user)
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
@@ -58,6 +68,8 @@ class DataDAO:
             try:
                 db.session.delete(data)
                 db.session.commit()
+                if os.path.isfile('static/DATA/' + data.file_path):
+                    os.remove('static/DATA/' + data.file_path)
             except Exception as e:
                 db.session.rollback()
                 logging.getLogger('error_logger').exception(e)
@@ -67,9 +79,15 @@ class DataDAO:
             raise UserException('Data doesn\'t exists.')
 
     @staticmethod
-    def delete_all():
+    def delete_all(data):
         try:
-            return db.session.query(Data).delete()
+            for dt in data:
+                db.session.delete(dt)
+            db.session.commit()
+            for dt in data:
+                if os.path.isfile('static/DATA/' + dt.file_path):
+                    os.remove('static/DATA/' + dt.file_path)
+            return 'All data dropped.'
         except Exception as e:
             db.session.rollback()
             logging.getLogger('error_logger').exception(e)
