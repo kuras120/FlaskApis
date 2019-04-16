@@ -2,6 +2,7 @@ body {
     min-height: 100vh;
     padding-top: 80px;
     background-color: #7a8b9f;
+    user-select: none;
 }
 
 .alert {
@@ -39,10 +40,6 @@ body {
     transition: all 300ms linear;
 }
 
-#banner:hover {
-    cursor: pointer;
-}
-
 #banner img {
     border-radius: 50%;
     height: 70px;
@@ -59,6 +56,7 @@ body {
 #banner i:not(:focus):hover {
     color: royalblue;
     border-color: royalblue;
+    cursor: pointer;
 }
 
 #banner i:focus {
