@@ -5,23 +5,25 @@ from ORM import db
 from ORM.Data import Data
 from ORM.History import History, TypeH
 
+from werkzeug.utils import secure_filename
 from Utilities.CustomExceptions import UserException, DatabaseException
 
 
 class DataDAO:
     @staticmethod
-    def create(file_name, user):
+    def create(file, user):
         try:
-            if not db.session.query(Data).filter(Data.file_name == file_name, Data.user_id == user.id).first():
-                new_data = Data(file_name=file_name, login=user.login)
+            secure_name = secure_filename(file.filename)
+            if not db.session.query(Data).filter(Data.file_name == secure_name, Data.user_id == user.id).first():
+                new_data = Data(file_name=secure_name)
                 user.data.append(new_data)
                 h_log = History(type_h=TypeH.Info, description='File ' + new_data.file_name + ' added')
                 user.history.append(h_log)
                 db.session.merge(user)
                 db.session.commit()
-                if not os.path.isdir(os.path.dirname('static/DATA/' + new_data.file_path)):
-                    os.makedirs(os.path.dirname('static/DATA/' + new_data.file_path))
-                open('static/DATA/' + new_data.file_path, 'w+').close()
+                path = os.path.join('static/DATA/' + user.home_catalog, new_data.file_name)
+                if not os.path.isfile(path):
+                    file.save(path)
                 return new_data
         except Exception as e:
             db.session.rollback()
@@ -33,26 +35,27 @@ class DataDAO:
         raise UserException(msg)
 
     @staticmethod
-    def read(file_name, user):
+    def read(file_name, user_id):
         try:
-            data = db.session.query(Data).filter(Data.file_name == file_name, Data.user_id == user.id).first()
+            file = db.session.query(Data).filter(Data.file_name == file_name, Data.user_id == user_id).first()
         except Exception as e:
             logging.getLogger('error_logger').exception(e)
             raise DatabaseException()
-        if data:
-            return data
+        if file:
+            return file
         else:
             logging.getLogger('logger').warning('File not found.')
             raise UserException()
 
     @staticmethod
-    def update(data, user, info):
-        if data and user:
+    def update(file, user, info=None):
+        if file and user:
             try:
-                db.session.merge(data)
-                h_log = History(type_h=TypeH.Info, description=info)
-                user.history.append(h_log)
-                db.session.merge(user)
+                db.session.merge(file)
+                if info:
+                    h_log = History(type_h=TypeH.Info, description=info)
+                    user.history.append(h_log)
+                    db.session.merge(user)
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
@@ -63,31 +66,15 @@ class DataDAO:
             raise UserException('Data doesn\'t exists.')
 
     @staticmethod
-    def delete(data):
-        if data:
-            try:
-                db.session.delete(data)
-                db.session.commit()
-                if os.path.isfile('static/DATA/' + data.file_path):
-                    os.remove('static/DATA/' + data.file_path)
-            except Exception as e:
-                db.session.rollback()
-                logging.getLogger('error_logger').exception(e)
-                raise DatabaseException()
-        else:
-            logging.getLogger('logger').warning('Delete data error. Data not found.')
-            raise UserException('Data doesn\'t exists.')
-
-    @staticmethod
-    def delete_all(data):
+    def delete(files, home_catalog):
         try:
-            for dt in data:
+            for dt in files:
                 db.session.delete(dt)
             db.session.commit()
-            for dt in data:
-                if os.path.isfile('static/DATA/' + dt.file_path):
-                    os.remove('static/DATA/' + dt.file_path)
-            return 'All data dropped.'
+            for dt in files:
+                path = os.path.join('static/DATA/' + home_catalog, dt.file_name)
+                if os.path.isfile(path):
+                    os.remove(path)
         except Exception as e:
             db.session.rollback()
             logging.getLogger('error_logger').exception(e)

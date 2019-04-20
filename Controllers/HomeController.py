@@ -51,8 +51,6 @@ def login_process():
     try:
         user = UserDAO.read(request.form['email'], request.form['password'])
         session['auth_token'] = Authentication.encode_auth_token(current_app.config['SECRET_KEY'], user.id)
-        user.last_login = datetime.datetime.now()
-        UserDAO.update(user, 'User last seen on ' + user.last_login.__str__())
         return redirect(url_for('user_controller.index'))
     except Exception as e:
         return redirect(url_for('home_controller.index', error=e))

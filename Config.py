@@ -13,7 +13,7 @@ from Controllers.UserController import user_controller
 
 def bind_blueprints(app):
     app.register_blueprint(home_controller, url_prefix='/')
-    app.register_blueprint(user_controller, url_prefix='/account')
+    app.register_blueprint(user_controller, url_prefix='/')
 
 
 def init_env():
@@ -75,7 +75,7 @@ def init_loggers():
 def init_debug():
     try:
         print('Debug data initialization...')
-        print(UserDAO.delete_all(UserDAO.get_all()))
+        UserDAO.delete(UserDAO.get_all())
         # Add users
         UserDAO.create('admin@gmail.com', 'admin1')
         UserDAO.create('user@gmail.com', 'user1')
@@ -83,5 +83,4 @@ def init_debug():
 
         print('Initialization completed.')
     except Exception as e:
-        db.session.rollback()
         print('Error: ' + e.__str__())
