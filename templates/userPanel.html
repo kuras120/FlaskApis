@@ -1,34 +1,75 @@
 {% extends 'shared/base.html' %}
 {% block title %}Account{% endblock %}
 {% block content %}
-    <div class="row flex-grow-1">
-        <div class="d-flex col-md-6 col-12 justify-content-center pt-2">
-            <h1>Hello {{ user }}</h1>
-            <i class="fas fa-user fa-9x"></i>
+    <div class="row py-2">
+    <div class="col-12 text-center">
+        <h2 >Hello {{ user }}!</h2>
+    </div>
+    </div>
+    <div class="row py-2">
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-file fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Files uploaded</span>
+                <span>6</span>
+            </div>
         </div>
-        <div class="col-md-3 col-12 pt-2">
-{#            {{ url_for('user_controller.add_file') }}#}
-            <form action="" method="POST" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-12 col-8 form-group">
-                        <label for="fileInput">Upload TSP</label>
-                        <input type="file" name="fileInput" class="form-control-file" id="fileInput" required>
-                    </div>
-                    <div class="d-flex col-md-12 col-4 align-items-center">
-                        <button type="submit" class="btn btn-secondary">Submit</button>
-                    </div>
-                </div>
-            </form>
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-tasks fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Tasks in queue</span>
+                <span>6</span>
+            </div>
         </div>
-        <div class="col-md-3 col-12 pt-2">
-            <div id="files-box" class="d-flex flex-column">
-                <label for="files">My files:</label>
-                <select id="files" class="custom-select flex-grow-1" multiple>
-                    {% for file in files %}
-                    <option value={{ file.file_name }}>{{ file.file_name }}</option>
-                    {% endfor %}
-                </select>
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-microchip fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Processed</span>
+                <span>6</span>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-poll fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Best result</span>
+                <span>6</span>
             </div>
         </div>
     </div>
+    <div class="flex-grow-1 row">
+
+    </div>
+    <form action="{{ url_for('user_controller.add_file')}}" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-hover table-dark mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">File name</th>
+                            <th scope="col">Added on</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ file.file_name }}</td>
+                            <td>{{ file.added_on }}</td>
+                            <td><button>Update</button></td>
+                            <td><button>Delete</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="custom-file">
+                <input type="file" onchange="this.form.submit()" class="custom-file-input" name="fileInput">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+    </form>
+
 {% endblock %}

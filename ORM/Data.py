@@ -1,5 +1,3 @@
-import hashlib
-
 from ORM import db
 from datetime import datetime
 
@@ -15,7 +13,7 @@ class Data(db.Model):
 
     def __init__(self, file_name):
         self.file_name = file_name
-        self.added_on = datetime.now()
+        self.added_on = datetime.now().replace(microsecond=0)
 
     def __repr__(self):
         return '<File %s>' % self.file_name
