@@ -36,40 +36,61 @@
             </div>
         </div>
     </div>
-    <div class="flex-grow-1 row">
+    <div class="row flex-grow-1 py-2" style="min-height: 100px;">
 
     </div>
-    <form action="{{ url_for('user_controller.add_file')}}" method="POST" enctype="multipart/form-data">
-        <div class="row">
+    <div class="d-flex row flex-column pt-2">
+        <form action="{{ url_for('operation_controller.add_file')}}" method="POST" enctype="multipart/form-data">
             <div class="table-responsive">
-                <table class="table table-hover table-dark mb-0">
+                <table id="files-table" class="table table-hover table-dark mb-0">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">File name</th>
-                            <th scope="col">Added on</th>
-                            <th scope="col">Update</th>
-                            <th scope="col">Delete</th>
+                            <th id="check-all" scope="col">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input check" id="custom-check-0">
+                                    <label class="custom-control-label" for="custom-check-0">#</label>
+                                </div>
+                            </th>
+                            <th id="file-name" scope="col">File name<span class="sort">
+                                    <a href="#" class="indigo-text">
+                                        <i class="fas fa-sort" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </th>
+                            <th id="addition-date" scope="col">Added on<span class="sort">
+                                    <a href="#" class="indigo-text">
+                                        <i class="fas fa-sort" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </th>
+                            <th>
+                                <a href="#" onclick="removeElements()">remove</a>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for file in files %}
                         <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ file.file_name }}</td>
-                            <td>{{ file.added_on }}</td>
-                            <td><button>Update</button></td>
-                            <td><button>Delete</button></td>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    {% set checkId = "custom-check-" + loop.index|string %}
+                                    <input type="checkbox" class="custom-control-input check" id="{{ checkId }}">
+                                    <label class="custom-control-label" for="{{ checkId }}">{{ loop.index }}</label>
+                                </div>
+                            </td>
+                            <td datatype="String" contenteditable="true">{{ file.file_name }}</td>
+                            <td datatype="Date-time">{{ file.added_on }}</td>
+                            <td></td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="custom-file">
-                <input type="file" onchange="this.form.submit()" class="custom-file-input" name="fileInput">
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <input type="file" onchange="this.form.submit()" class="custom-file-input" name="file-input">
+                <label class="custom-file-label" for="input-group-file">Choose file</label>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
 {% endblock %}

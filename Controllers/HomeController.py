@@ -28,8 +28,8 @@ def index(error):
     if 'auth_token' in session:
         error = None
         try:
-            user_id = Authentication.decode_auth_token(current_app.config['SECRET_KEY'], session['auth_token'])
-            login = UserDAO.get(user_id).login.split('@')[0]
+            login = UserDAO.get(Authentication.decode_auth_token(current_app.config['SECRET_KEY'],
+                                                                 session['auth_token'])).login.split('@')[0]
         except Exception as e:
             session.pop('auth_token', None)
             return redirect(url_for('home_controller.index', error=e))
@@ -67,3 +67,10 @@ def register_process():
             return redirect(url_for('home_controller.index', error=e))
     else:
         return redirect(url_for('home_controller.index', error='Passwords don\'t match.'))
+
+
+@home_controller.route('/logout', defaults={'error': None})
+@home_controller.route('/logout/<error>')
+def logout(error):
+    session.pop('auth_token', None)
+    return redirect(url_for('home_controller.index', error=error))
