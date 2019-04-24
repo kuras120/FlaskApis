@@ -16,7 +16,7 @@ class User(db.Model):
     home_catalog = Column(String, nullable=False)
     created_on = Column(DateTime, nullable=False)
     last_login = Column(DateTime, nullable=True)
-    data = relationship("Data", cascade="all, delete-orphan")
+    files = relationship("File", cascade="all, delete-orphan")
     history = relationship("History", cascade="all, delete-orphan")
 
     def __init__(self, login, password):

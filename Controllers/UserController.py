@@ -1,7 +1,7 @@
 import datetime
 
 from DAL.UserDAO import UserDAO
-from DAL.DataDAO import DataDAO
+from DAL.FileDAO import FileDAO
 from Controllers import user_controller
 from Utilities.Authentication import Authentication
 
@@ -14,7 +14,7 @@ def index(error):
     user = UserDAO.get(Authentication.decode_auth_token(current_app.config['SECRET_KEY'], session['auth_token']))
     try:
         login = user.login.split('@')[0]
-        files = DataDAO.get_all(user.id)
+        files = FileDAO.get_all(user.id)
         current_year = datetime.datetime.now().year.__str__()
         return render_template('userPanel.html', user=login, files=files, year=current_year, error=error)
     except Exception as e:

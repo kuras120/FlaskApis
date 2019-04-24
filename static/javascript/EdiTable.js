@@ -1,10 +1,24 @@
-let table = $('#files-table');
+let table = $('#files-table > tbody');
 
 function removeElements() {
-    let files;
-    table.find('tr').each(function (index, value) {
-        if ($(this).find('.check').prop('checked')) files.append();
+    let files = [];
+    table.find('tr').each(function () {
+        if ($(this).find('.check').prop('checked')) {
+            $(this).find('td').each(function () {
+                if ($(this).attr('datatype') === 'String') files.push($(this).text());
+            });
+            $(this).remove();
+        }
+    });
+    let files_str = JSON.stringify(files);
+    $.ajax({
+        type : 'POST',
+        url : '/account/delete_files',
+        data : files_str,
+        dataType : 'json'
     })
+    .done(function() {
+    });
 }
 
 $(document).ready( function() {

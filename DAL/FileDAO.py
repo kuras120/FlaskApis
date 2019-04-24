@@ -2,26 +2,26 @@ import os
 import logging
 
 from ORM import db
-from ORM.Data import Data
+from ORM.File import File
 from ORM.History import History, TypeH
 
 from werkzeug.utils import secure_filename
 from Utilities.CustomExceptions import UserException, DatabaseException
 
 
-class DataDAO:
+class FileDAO:
     @staticmethod
     def create(file, user):
         try:
             secure_name = secure_filename(file.filename)
-            if not db.session.query(Data).filter(Data.file_name == secure_name, Data.user_id == user.id).first():
-                new_data = Data(file_name=secure_name)
-                user.data.append(new_data)
-                h_log = History(type_h=TypeH.Info, description='File ' + new_data.file_name + ' added')
+            if not db.session.query(File).filter(File.name == secure_name, File.user_id == user.id).first():
+                new_data = File(name=secure_name)
+                user.files.append(new_data)
+                h_log = History(type_h=TypeH.Info, description='File ' + new_data.name + ' added')
                 user.history.append(h_log)
                 db.session.merge(user)
                 db.session.commit()
-                path = os.path.join('static/DATA/' + user.home_catalog, new_data.file_name)
+                path = os.path.join('static/DATA/' + user.home_catalog, new_data.name)
                 if not os.path.isfile(path):
                     file.save(path)
                 return new_data
@@ -35,9 +35,9 @@ class DataDAO:
         raise UserException(msg)
 
     @staticmethod
-    def read(file_name, user_id):
+    def read(name, user_id):
         try:
-            file = db.session.query(Data).filter(Data.file_name == file_name, Data.user_id == user_id).first()
+            file = db.session.query(File).filter(File.name == name, File.user_id == user_id).first()
         except Exception as e:
             logging.getLogger('error_logger').exception(e)
             raise DatabaseException()
@@ -72,7 +72,7 @@ class DataDAO:
                 db.session.delete(dt)
             db.session.commit()
             for dt in files:
-                path = os.path.join('static/DATA/' + home_catalog, dt.file_name)
+                path = os.path.join('static/DATA/' + home_catalog, dt.name)
                 if os.path.isfile(path):
                     os.remove(path)
         except Exception as e:
@@ -83,7 +83,7 @@ class DataDAO:
     @staticmethod
     def get(data_id):
         try:
-            return db.session.query(Data).filter(Data.id == data_id).first()
+            return db.session.query(File).filter(File.id == data_id).first()
         except Exception as e:
             logging.getLogger('error_logger').exception(e)
             raise DatabaseException()
@@ -91,7 +91,7 @@ class DataDAO:
     @staticmethod
     def get_all(user_id):
         try:
-            return db.session.query(Data).filter(Data.user_id == user_id).all()
+            return db.session.query(File).filter(File.user_id == user_id).all()
         except Exception as e:
             logging.getLogger('error_logger').exception(e)
             raise DatabaseException()
