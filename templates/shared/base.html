@@ -17,11 +17,11 @@
     </head>
     <body class="d-flex flex-column">
         <!-- Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle" aria-hidden="true">
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalTitle">LOG IN</h5>
+                        <h5 class="modal-title" id="login-modal-title">LOG IN</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -38,8 +38,8 @@
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                             </div>
                             <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                                <input type="checkbox" class="form-check-input" id="remember-me">
+                                <label class="form-check-label" for="remember-me">Remember me</label>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -61,18 +61,18 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarText">
+                <div class="collapse navbar-collapse" id="navbar-text">
                     <ul class="navbar-nav ml-auto">
                         {% if session.get('auth_token') %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url_for('user_controller.index') }}">LOGGED AS {{ user }}</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ url_for('user_controller.logout')}}">SIGN OUT<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{ url_for('home_controller.logout')}}">SIGN OUT<span class="sr-only">(current)</span></a>
                             </li>
                         {% else %}
                             <li class="nav-item active">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"> <span>SIGN UP / SIGN IN</span> <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal"> <span>SIGN UP / SIGN IN</span> <span class="sr-only">(current)</span></a>
                             </li>
                         {% endif %}
                     </ul>
@@ -87,19 +87,19 @@
             {% if session.get('auth_token') %}
             <div id="button-mobile" class="container-fluid d-flex justify-content-center h-100">
                 <h5>
-                    <a href="{{ url_for('user_controller.logout')}}">
+                    <a href="{{ url_for('home_controller.logout')}}">
                         SIGN OUT <span class="sr-only">(current)</span>
                     </a>
                 </h5>
             </div>
             {% else %}
-            <div id="button-mobile" class="container-fluid d-flex justify-content-center h-100" data-toggle="modal" data-target="#loginModal">
+            <div id="button-mobile" class="container-fluid d-flex justify-content-center h-100" data-toggle="modal" data-target="#login-modal">
                 <h5>TAP TO START</h5>
             </div>
             {% endif %}
         </nav>
         <!-- CONTENT -->
-        <div class="container-fluid d-flex flex-column flex-grow-1">
+        <div class="d-flex container-fluid flex-column flex-grow-1">
             {% block content %}{% endblock %}
         </div>
         <!-- FOOTER -->
@@ -160,6 +160,8 @@
 
 
         <!-- Optional JavaScript -->
-        <script src="../static/javascript/MainPageFunctions.js"></script>
+        <script src="../../static/javascript/jquery.sortElements.js"></script>
+        <script src="../../static/javascript/MainPageFunctions.js"></script>
+        <script src="../../static/javascript/EdiTable.js"></script>
     </body>
 </html>

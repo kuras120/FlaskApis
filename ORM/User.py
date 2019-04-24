@@ -16,7 +16,7 @@ class User(db.Model):
     home_catalog = Column(String, nullable=False)
     created_on = Column(DateTime, nullable=False)
     last_login = Column(DateTime, nullable=True)
-    data = relationship("Data", cascade="all, delete-orphan")
+    files = relationship("File", cascade="all, delete-orphan")
     history = relationship("History", cascade="all, delete-orphan")
 
     def __init__(self, login, password):
@@ -24,8 +24,8 @@ class User(db.Model):
         self.salt = secrets.token_hex(8)
         self.hashed_password = hashlib.sha3_512(password.encode("utf-8") + self.salt.encode("utf-8")).hexdigest()
         self.home_catalog = hashlib.sha3_256(login.__str__().encode('utf-8')).hexdigest()
-        self.created_on = datetime.now()
-        self.last_login = datetime.now()
+        self.created_on = datetime.now().replace(microsecond=0)
+        self.last_login = datetime.now().replace(microsecond=0)
 
     def __repr__(self):
         return '<User %s>' % self.login

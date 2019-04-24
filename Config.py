@@ -9,11 +9,13 @@ from DAL.UserDAO import UserDAO
 
 from Controllers.HomeController import home_controller
 from Controllers.UserController import user_controller
+from Controllers.OperationController import operation_controller
 
 
 def bind_blueprints(app):
     app.register_blueprint(home_controller, url_prefix='/')
-    app.register_blueprint(user_controller, url_prefix='/')
+    app.register_blueprint(user_controller, url_prefix='/account')
+    app.register_blueprint(operation_controller, url_prefix='/account')
 
 
 def init_env():
