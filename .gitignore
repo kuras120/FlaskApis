@@ -103,3 +103,7 @@ ENV/
 \.idea/
 
 \.vscode/
+
+static/DB/
+
+static/DATA/

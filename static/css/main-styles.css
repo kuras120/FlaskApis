@@ -1,6 +1,8 @@
 body {
     min-height: 100vh;
     padding-top: 80px;
+    background-color: #7a8b9f;
+    user-select: none;
 }
 
 .alert {
@@ -28,7 +30,10 @@ body {
     color: white;
     background-color: #4b71e1;
 }
-
+#button-mobile a {
+    color: white;
+    text-decoration: none;
+}
 /* FIRST IMPRESSION */
 #banner {
     background: url("../images/city.jpg"), linear-gradient(rgba(123, 140, 160, 1), rgba(123, 140, 160, 1)) repeat-x;
@@ -36,11 +41,6 @@ body {
     height: 500px;
     filter: brightness(100%);
     transition: all 300ms linear;
-}
-
-#banner:hover {
-    filter: brightness(90%);
-    cursor: pointer;
 }
 
 #banner img {
@@ -59,6 +59,7 @@ body {
 #banner i:not(:focus):hover {
     color: royalblue;
     border-color: royalblue;
+    cursor: pointer;
 }
 
 #banner i:focus {
@@ -79,6 +80,10 @@ body {
 #sub-menu li:not(:first-child) {
     padding-left: .5rem;
     border-left: 1px solid #000;
+}
+
+.list-group-item {
+    background-color: #7a8b9f;
 }
 
 footer {
