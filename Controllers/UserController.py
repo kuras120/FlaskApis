@@ -34,6 +34,16 @@ def add_file():
         return redirect(url_for('user_controller.index', error=e))
 
 
+@user_controller.route('/change_file', methods=['POST'])
+def change_file():
+    try:
+        data = json.loads(urllib.parse.unquote(request.get_data('files').decode('utf-8')))
+        user = UserDAO.get(Authentication.decode_auth_token(current_app.config['SECRET_KEY'], session['auth_token']))
+        FileDAO.update(data[0], user, 'File ' + data[0] + ' updated')
+    except Exception as e:
+        return redirect(url_for('user_controller.index', error=e))
+
+
 @user_controller.route('/delete_files', methods=['POST'])
 def delete_files():
     try:

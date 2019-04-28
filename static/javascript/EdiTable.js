@@ -1,16 +1,73 @@
-let table = $('#files-table > tbody');
+let table = $('#files-table');
+let tBody = table.find('tbody');
+
+function editElement(row) {
+    let parent = $(row).parent();
+    parent.parent().children().each(function () {
+        console.log($(this));
+        if ($(this).attr('contenteditable')) {
+            $(this).attr('contenteditable', true);
+        }
+
+    });
+    parent.html('<a id="" href="#" onclick="saveEdit(this)">Save</a> / <a href="#" onclick="closeEdit(this)">Close</a>');
+
+
+}
+
+function saveEdit(row) {
+    let parent = $(row).parent();
+    let changes = [];
+    parent.parent().children().each(function () {
+        console.log($(this));
+        if ($(this).attr('contenteditable')) {
+            changes.push($(this).text())
+        }
+    });
+
+    let changes_str = JSON.stringify(changes);
+    console.log(changes);
+
+    $.ajax({
+        type : 'POST',
+        url : '/account/change_file',
+        data : changes_str,
+        dataType : 'json'
+    })
+    .done(function() {
+    });
+    alert('saved');
+    closeEdit(row);
+}
+
+function closeEdit(row) {
+    let parent = $(row).parent();
+    parent.parent().children().each(function () {
+        console.log($(this));
+        if ($(this).attr('contenteditable')) {
+            $(this).attr('contenteditable', false);
+        }
+
+    });
+    parent.html('<a href="#" onclick="editElement(this)">Edit</a>');
+}
 
 function removeElements() {
     let files = [];
-    table.find('tr').each(function () {
+    let thIndex = $('#file-name').index();
+
+    tBody.find('tr').each(function () {
         if ($(this).find('.check').prop('checked')) {
             $(this).find('td').each(function () {
-                if ($(this).attr('datatype') === 'String') files.push($(this).text());
+                if ($(this).index() === thIndex) files.push($(this).text());
             });
             $(this).remove();
         }
     });
+
+    $('#check-all').find('.check').prop('checked', false);
     let files_str = JSON.stringify(files);
+
     $.ajax({
         type : 'POST',
         url : '/account/delete_files',
@@ -28,7 +85,7 @@ $(document).ready( function() {
                 thIndex = th.index(),
                 inverse = false;
             th.click(function () {
-                table.find('td').filter(function () {
+                tBody.find('td').filter(function () {
                     return $(this).index() === thIndex;
                 }).sortElements(function (a, b) {
                     return $.text([a]) > $.text([b]) ?

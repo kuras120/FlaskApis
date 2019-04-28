@@ -64,7 +64,7 @@
                                 </span>
                             </th>
                             <th>
-                                <a href="#" onclick="removeElements()">remove</a>
+                                <a href="#" onclick="removeElements()">Remove selected</a>
                             </th>
                         </tr>
                     </thead>
@@ -78,9 +78,9 @@
                                     <label class="custom-control-label" for="{{ checkId }}">{{ loop.index }}</label>
                                 </div>
                             </td>
-                            <td datatype="String" contenteditable="true">{{ file.name }}</td>
+                            <td datatype="String" contenteditable="false">{{ file.name }}</td>
                             <td datatype="Date-time">{{ file.added_on }}</td>
-                            <td></td>
+                            <td><a href="#" onclick="editElement(this)">Edit</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

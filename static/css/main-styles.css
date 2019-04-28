@@ -82,6 +82,10 @@ body {
     border-left: 1px solid #000;
 }
 
+#files-table a{
+    color: white;
+}
+
 .list-group-item {
     background-color: #7a8b9f;
 }
