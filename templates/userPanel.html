@@ -45,26 +45,26 @@
                 <table id="files-table" class="table table-hover table-dark mb-0">
                     <thead>
                         <tr>
-                            <th id="check-all" scope="col">
+                            <th id="check-all" onclick="checkAll(this)" scope="col">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input check" id="custom-check-0">
                                     <label class="custom-control-label" for="custom-check-0">#</label>
                                 </div>
                             </th>
-                            <th id="file-name" scope="col">File name<span class="sort">
+                            <th id="file-name" class="sortable" scope="col">File name<span class="sort">
                                     <a href="#" class="indigo-text">
                                         <i class="fas fa-sort" aria-hidden="true"></i>
                                     </a>
                                 </span>
                             </th>
-                            <th id="addition-date" scope="col">Added on<span class="sort">
+                            <th class="sortable" scope="col">Added on<span class="sort">
                                     <a href="#" class="indigo-text">
                                         <i class="fas fa-sort" aria-hidden="true"></i>
                                     </a>
                                 </span>
                             </th>
                             <th>
-                                <a href="#" onclick="removeElements()">remove</a>
+                                <a href="#" onclick="removeElements()">Remove selected</a>
                             </th>
                         </tr>
                     </thead>
@@ -78,9 +78,9 @@
                                     <label class="custom-control-label" for="{{ checkId }}">{{ loop.index }}</label>
                                 </div>
                             </td>
-                            <td datatype="String" contenteditable="true">{{ file.name }}</td>
+                            <td datatype="String" contenteditable="false">{{ file.name }}</td>
                             <td datatype="Date-time">{{ file.added_on }}</td>
-                            <td></td>
+                            <td><a href="#" onclick="editElement(this)">Edit</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
