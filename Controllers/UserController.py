@@ -39,7 +39,10 @@ def change_file():
     try:
         data = json.loads(urllib.parse.unquote(request.get_data('files').decode('utf-8')))
         user = UserDAO.get(Authentication.decode_auth_token(current_app.config['SECRET_KEY'], session['auth_token']))
-        FileDAO.update(data[0], user, 'File ' + data[0] + ' updated')
+        file_to_update = FileDAO.read(data[0][0], user.id)
+        file_to_update.name = data[1][0]
+        FileDAO.update(file_to_update, user, 'File name: ' + data[0][0] + ' to ' + data[1][0] + ' updated')
+        return redirect(url_for('user_controller.index'))
     except Exception as e:
         return redirect(url_for('user_controller.index', error=e))
 

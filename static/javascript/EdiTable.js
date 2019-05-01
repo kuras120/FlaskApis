@@ -1,55 +1,54 @@
-let table = $('#files-table');
-let tBody = table.find('tbody');
+let tBody = $('#files-table').find('tbody');
+
+let backup = [];
+let editing = false;
 
 function editElement(row) {
-    let parent = $(row).parent();
-    parent.parent().children().each(function () {
-        console.log($(this));
-        if ($(this).attr('contenteditable')) {
-            $(this).attr('contenteditable', true);
-        }
-
-    });
-    parent.html('<a id="" href="#" onclick="saveEdit(this)">Save</a> / <a href="#" onclick="closeEdit(this)">Close</a>');
-
-
+    if (!editing) {
+        editing = true;
+        let parent = $(row).parent();
+        parent.parent().children().each(function () {
+            if ($(this).attr('contenteditable')) {
+                $(this).prop('contenteditable', true);
+                backup.push($(this).text());
+            }
+        });
+        parent.html('<a id="" href="#" onclick="saveEdit(this)">Save</a> / ' +
+            '<a href="#" onclick="closeEdit(this,false)">Close</a>');
+    }
 }
 
 function saveEdit(row) {
-    let parent = $(row).parent();
     let changes = [];
+    let parent = $(row).parent();
     parent.parent().children().each(function () {
-        console.log($(this));
         if ($(this).attr('contenteditable')) {
             changes.push($(this).text())
         }
     });
 
-    let changes_str = JSON.stringify(changes);
-    console.log(changes);
 
     $.ajax({
         type : 'POST',
         url : '/account/change_file',
-        data : changes_str,
+        data : JSON.stringify([backup, changes]),
         dataType : 'json'
-    })
-    .done(function() {
     });
+
     alert('saved');
-    closeEdit(row);
+    closeEdit(row, true);
 }
 
-function closeEdit(row) {
+function closeEdit(row, saved) {
     let parent = $(row).parent();
     parent.parent().children().each(function () {
-        console.log($(this));
         if ($(this).attr('contenteditable')) {
-            $(this).attr('contenteditable', false);
+            $(this).prop('contenteditable', false);
+            if (!saved) $(this).text(backup.pop());
         }
-
     });
     parent.html('<a href="#" onclick="editElement(this)">Edit</a>');
+    editing = false;
 }
 
 function removeElements() {
@@ -73,13 +72,17 @@ function removeElements() {
         url : '/account/delete_files',
         data : files_str,
         dataType : 'json'
-    })
-    .done(function() {
     });
 }
 
+function checkAll(checkbox) {
+    let master = $(checkbox).find('.check');
+    master.prop('checked', !master.prop('checked'));
+    $(".check").prop('checked', master.prop('checked'));
+}
+
 $(document).ready( function() {
-    $('#file-name, #addition-date')
+    $('.sortable')
         .each(function () {
             let th = $(this),
                 thIndex = th.index(),
@@ -99,14 +102,8 @@ $(document).ready( function() {
             });
         });
 
-    $('#check-all').click(function () {
-        let master = $(this).find('.check');
-        master.prop('checked', !master.prop('checked'));
-        $(".check").prop('checked', master.prop('checked'));
-    });
-
-    $('#files-table td').click(function () {
-        if ($(this).attr('contenteditable') !== 'true') {
+    $('#files-table td').click(function (e) {
+        if (!$(e.target).is('a') && $(this).prop('contenteditable') !== 'true') {
             let checkbox = $(this).parent().find('.check');
             checkbox.prop('checked', !checkbox.prop('checked'));
         }
