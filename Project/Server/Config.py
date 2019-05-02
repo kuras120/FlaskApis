@@ -1,43 +1,46 @@
 import os
+import secrets
 import logging
 
-from ORM import db
-
-from dotenv import load_dotenv
-
-from DAL.UserDAO import UserDAO
-
-from Controllers.HomeController import home_controller
-from Controllers.UserController import user_controller
+from Project.Server.ORM import db
+from Project.Server.DAL.UserDAO import UserDAO
 
 
-def bind_blueprints(app):
-    app.register_blueprint(home_controller, url_prefix='/')
-    app.register_blueprint(user_controller, url_prefix='/account')
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 
-def init_env():
-    if not os.path.isfile('.env'):
-        file = open('.env', 'w+')
-        file.write('FLASK_ENV=development\n'
-                   'DATABASE_CONNECTION_STRING=sqlite:///static/DB/flask_app.db\n')
-        file.close()
-        print('Env file created.')
+class BaseConfig(object):
+    """Base configuration."""
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///flask_app.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = secrets.token_urlsafe(16)
+    REDIS_URL = 'redis://redis:6379/0'
+    FLASK_ENV = 'production'
+    WTF_CSRF_ENABLED = True
+    QUEUES = ['default']
 
-    load_dotenv()
+
+class DevelopmentConfig(BaseConfig):
+    """Development configuration."""
+    FLASK_ENV = 'development'
+    WTF_CSRF_ENABLED = False
+
+
+class TestingConfig(BaseConfig):
+    """Testing configuration."""
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
+    FLASK_ENV = 'development'
+    WTF_CSRF_ENABLED = False
+    TESTING = True
 
 
 def init_db(app):
-    if not os.path.isdir('static/DB'):
-        os.makedirs('static/DB')
-        print('DB folder created.')
-
     db.app = app
     db.init_app(app)
     db.create_all()
 
-    if not os.path.isdir('static/DATA'):
-        os.makedirs('static/DATA')
+    if not os.path.isdir('Project/Server/DATA'):
+        os.makedirs('Project/Server/DATA')
         print('DATA folder created.')
 
 
@@ -49,12 +52,12 @@ def init_loggers():
     logger.setLevel(logging.INFO)
     error_logger.setLevel(logging.DEBUG)
 
-    if not os.path.isdir('Logs'):
-        os.makedirs('Logs')
+    if not os.path.isdir('Project/Logs'):
+        os.makedirs('Project/Logs')
         print('Logs folder created.')
 
-    fh = logging.FileHandler('Logs/info.log')
-    fher = logging.FileHandler('Logs/error.log')
+    fh = logging.FileHandler('Project/Logs/info.log')
+    fher = logging.FileHandler('Project/Logs/error.log')
     ch = logging.StreamHandler()
 
     fh.setLevel(logging.INFO)

@@ -1,19 +1,19 @@
 import datetime
 
-from DAL.UserDAO import UserDAO
+from Project.Server.DAL.UserDAO import UserDAO
 
 from multiprocessing import Value
 
-from Controllers import home_controller
+from Project.Server.Controllers import home_controller
 
-from Utilities.Format import Format
-from Utilities.Authentication import Authentication
-from Utilities.PropertiesReader import PropertiesReader
+from Project.Server.Utilities.Format import Format
+from Project.Server.Utilities.Authentication import Authentication
+from Project.Server.Utilities.PropertiesReader import PropertiesReader
 
 from flask import render_template, jsonify, request, session, redirect, url_for, current_app
 
 
-survey = PropertiesReader('static/dictionary/feedback_index.properties')
+survey = PropertiesReader('Project/Client/static/dictionary/feedback_index.properties')
 likes_counter = Value('i', 1200)
 
 

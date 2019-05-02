@@ -100,10 +100,10 @@ ENV/
 # mypy
 .mypy_cache/
 
+# IDEs
 \.idea/
-
 \.vscode/
 
-static/DB/
-
-static/DATA/
+# self-generating
+Project/Server/DATA
+*.db

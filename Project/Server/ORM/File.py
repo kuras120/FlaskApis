@@ -1,4 +1,4 @@
-from ORM import db
+from Project.Server.ORM import db
 from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
