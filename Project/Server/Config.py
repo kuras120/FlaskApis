@@ -2,7 +2,6 @@ import os
 import secrets
 import logging
 
-from Project.Server.ORM import db
 from Project.Server.DAL.UserDAO import UserDAO
 
 
@@ -32,16 +31,6 @@ class TestingConfig(BaseConfig):
     FLASK_ENV = 'development'
     WTF_CSRF_ENABLED = False
     TESTING = True
-
-
-def init_db(app):
-    db.app = app
-    db.init_app(app)
-    db.create_all()
-
-    if not os.path.isdir('Project/Server/DATA'):
-        os.makedirs('Project/Server/DATA')
-        print('DATA folder created.')
 
 
 def init_loggers():

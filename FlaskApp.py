@@ -1,26 +1,13 @@
-import os
 import redis
-import logging
 
 from flask.cli import FlaskGroup
 from rq import Connection, Worker
 
 from Project.Server import create_app
-from Project.Server.Config import init_loggers, init_debug, init_db
 
 
 app = create_app()
 cli = FlaskGroup(create_app=create_app)
-
-init_loggers()
-logging.getLogger('logger').info('Loggers initialized.')
-
-init_db(app)
-logging.getLogger('logger').info('Db initialized.')
-
-if os.getenv('FLASK_ENV') == 'development':
-    init_debug()
-    logging.getLogger('logger').info('Debug mode on')
 
 
 @cli.command('run_worker')

@@ -3,4 +3,3 @@ COPY . /usr/src/FlaskTemplateSite
 RUN ls -la /usr/src/FlaskTemplateSite/*
 WORKDIR /usr/src/FlaskTemplateSite
 RUN pip install -r requirements.txt
-# CMD ["python", "Project/FlaskApp.py"]
