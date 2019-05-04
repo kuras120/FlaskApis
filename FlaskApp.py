@@ -10,6 +10,7 @@ app = create_app()
 cli = FlaskGroup(create_app=create_app)
 
 
+# TODO Not available for windows (fork command)
 @cli.command('run_worker')
 def run_worker():
     redis_url = app.config['REDIS_URL']

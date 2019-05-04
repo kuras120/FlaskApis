@@ -36,8 +36,32 @@
             </div>
         </div>
     </div>
-    <div class="row flex-grow-1 py-2" style="min-height: 100px;">
-
+    <div class="row flex-column flex-grow-1 py-2" style="min-height: 100px;">
+        <div>
+            <h3>Tasks</h3>
+            <p>Pick a task length...</p>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" data-type="1">Short</button>
+                <button type="button" class="btn btn-primary" data-type="2">Medium</button>
+                <button type="button" class="btn btn-primary" data-type="3">Long</button>
+            </div>
+        </div>
+        <br><br>
+        <div>
+            <h3>Task Status</h3>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody id="tasks">
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="d-flex row flex-column pt-2">
         <form action="{{ url_for('user_controller.add_file')}}" method="POST" enctype="multipart/form-data">

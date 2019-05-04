@@ -1,13 +1,20 @@
 import json
+import redis
 import datetime
 import urllib.parse
 
+from rq import Queue, Connection
+
 from Project.Server.DAL.UserDAO import UserDAO
 from Project.Server.DAL.FileDAO import FileDAO
+
+from Project.Server.Tasks.TestTask import create_task
+
 from Project.Server.Controllers import user_controller
+
 from Project.Server.Utilities.Authentication import Authentication
 
-from flask import render_template, session, redirect, url_for, current_app, request
+from flask import render_template, session, redirect, url_for, current_app, request, jsonify
 
 
 @user_controller.route('/', defaults={'error': None})
@@ -59,6 +66,40 @@ def delete_files():
         return redirect(url_for('user_controller.index'))
     except Exception as e:
         return redirect(url_for('user_controller.index', error=e))
+
+
+@user_controller.route('/queue_task', methods=['POST'])
+def queue_task():
+    task_type = request.form['type']
+    with Connection(redis.from_url(current_app.config['REDIS_URL'])):
+        q = Queue()
+        task = q.enqueue(create_task, task_type)
+    response_object = {
+        'status': 'success',
+        'data': {
+            'task_id': task.get_id()
+        }
+    }
+    return jsonify(response_object), 202
+
+
+@user_controller.route('/task_status/<task_id>', methods=['GET'])
+def get_status(task_id):
+    with Connection(redis.from_url(current_app.config['REDIS_URL'])):
+        q = Queue()
+        task = q.fetch_job(task_id)
+    if task:
+        response_object = {
+            'status': 'success',
+            'data': {
+                'task_id': task.get_id(),
+                'task_status': task.get_status(),
+                'task_result': task.result,
+            }
+        }
+    else:
+        response_object = {'status': 'error'}
+    return jsonify(response_object)
 
 
 @user_controller.before_request

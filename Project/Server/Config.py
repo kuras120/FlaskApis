@@ -13,7 +13,7 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///flask_app.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = secrets.token_urlsafe(16)
-    REDIS_URL = 'redis://redis:6379/0'
+    REDIS_URL = 'redis://127.0.0.1:6379/0'
     FLASK_ENV = 'production'
     WTF_CSRF_ENABLED = True
     QUEUES = ['default']
