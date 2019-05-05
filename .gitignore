@@ -107,3 +107,5 @@ ENV/
 # self-generating
 Project/Server/DATA
 *.db
+
+dump\.rdb
