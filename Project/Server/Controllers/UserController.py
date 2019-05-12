@@ -3,6 +3,8 @@ import redis
 import datetime
 import urllib.parse
 
+from flask import Blueprint
+
 from rq import Queue, Connection
 
 from Project.Server.DAL.UserDAO import UserDAO
@@ -10,11 +12,11 @@ from Project.Server.DAL.FileDAO import FileDAO
 
 from Project.Server.Tasks.TestTask import create_task
 
-from Project.Server.Controllers import user_controller
-
 from Project.Server.Utilities.Authentication import Authentication
 
 from flask import render_template, session, redirect, url_for, current_app, request, jsonify
+
+user_controller = Blueprint('user_controller', __name__)
 
 
 @user_controller.route('/', defaults={'error': None})

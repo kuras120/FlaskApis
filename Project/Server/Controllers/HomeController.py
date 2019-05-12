@@ -1,10 +1,10 @@
 import datetime
 
-from Project.Server.DAL.UserDAO import UserDAO
+from flask import Blueprint
 
 from multiprocessing import Value
 
-from Project.Server.Controllers import home_controller
+from Project.Server.DAL.UserDAO import UserDAO
 
 from Project.Server.Utilities.Format import Format
 from Project.Server.Utilities.Authentication import Authentication
@@ -12,6 +12,7 @@ from Project.Server.Utilities.PropertiesReader import PropertiesReader
 
 from flask import render_template, jsonify, request, session, redirect, url_for, current_app
 
+home_controller = Blueprint('home_controller', __name__)
 
 survey = PropertiesReader('Project/Client/static/dictionary/feedback_index.properties')
 likes_counter = Value('i', 1200)
