@@ -1,0 +1,147 @@
+{% extends 'shared/base.html' %}
+{% block title %}Account{% endblock %}
+{% block content %}
+    <!-- MODAL - QUEUE -->
+    <div class="modal fade" id="queue-modal" tabindex="-1" role="dialog" aria-labelledby="queue-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="login-modal-title">Queue</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="alg-path">Choose algorithm...</label>
+                        <select class="custom-select" id="alg-path" name="alg_path" required>
+                            <option value="['Tabu Search', 'Project/Algorithms/TabuSearch.py']">Tabu search</option>
+                            <option value="['Simulated annealing', 'Project/Algorithms/SimulatedAnnealing.py']">Simulated annealing</option>
+                            <option value="['Genetic', 'Project/Algorithms/Genetic.py']">Genetic</option>
+                            <option value="['Ant colony', 'Project/Algorithms/AntColonyOpt.py']">Ant colony</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="file-path">Choose instance...</label>
+                        <select class="custom-select" id="file-path" name="file_path" required>
+                            {% for file in files %}
+                            <option value={{ 'Project/Server/DATA/' + home_catalog + '/' + file.name }}>{{ file.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary" onclick="queue()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-2">
+    <div class="col-12 text-center">
+        <h2 >Hello {{ user }} - <a href="#" data-toggle="modal" data-target="#queue-modal">Queue task!</a></h2>
+    </div>
+    </div>
+    <div class="row py-2">
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-file fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Files uploaded</span>
+                <span>0</span>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-tasks fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Tasks in queue</span>
+                <span>0</span>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-microchip fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Processed</span>
+                <span>0</span>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center col-md-3 col-6">
+            <i class="fas fa-poll fa-2x"></i>
+            <div class="d-flex flex-column text-center pl-2">
+                <span>Best result</span>
+                <span>0</span>
+            </div>
+        </div>
+    </div>
+    <div class="row flex-column flex-grow-1 py-2" style="min-height: 100px;">
+        <br><br>
+        <div>
+            <h3>Task Status</h3>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="display: none">ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody id="tasks">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex row flex-column pt-2">
+        <form action="{{ url_for('user_controller.add_file')}}" method="POST" enctype="multipart/form-data">
+            <div class="table-responsive">
+                <table id="files-table" class="table table-hover table-dark mb-0">
+                    <thead>
+                        <tr>
+                            <th id="check-all" onclick="checkAll(this)" scope="col">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input check" id="custom-check-0">
+                                    <label class="custom-control-label" for="custom-check-0">#</label>
+                                </div>
+                            </th>
+                            <th id="file-name" class="sortable" scope="col">File name<span class="sort">
+                                    <a href="#" class="indigo-text">
+                                        <i class="fas fa-sort" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </th>
+                            <th class="sortable" scope="col">Added on<span class="sort">
+                                    <a href="#" class="indigo-text">
+                                        <i class="fas fa-sort" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </th>
+                            <th>
+                                <a href="#" onclick="removeElements()">Remove selected</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    {% set checkId = "custom-check-" + loop.index|string %}
+                                    <input type="checkbox" class="custom-control-input check" id="{{ checkId }}">
+                                    <label class="custom-control-label" for="{{ checkId }}">{{ loop.index }}</label>
+                                </div>
+                            </td>
+                            <td datatype="String" contenteditable="false">{{ file.name }}</td>
+                            <td datatype="Date-time">{{ file.added_on }}</td>
+                            <td><a href="#" onclick="editElement(this)">Edit</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="custom-file">
+                <input type="file" onchange="this.form.submit()" class="custom-file-input" name="file-input">
+                <label class="custom-file-label" for="input-group-file">Choose file</label>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
