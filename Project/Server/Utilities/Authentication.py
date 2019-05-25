@@ -10,7 +10,7 @@ class Authentication:
     def encode_auth_token(secret_key, user_id):
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, hours=0, minutes=15, seconds=0),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, hours=1, minutes=0, seconds=0),
                 'iat': datetime.datetime.utcnow(),
                 'sub': user_id
             }

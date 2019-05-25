@@ -1,3 +1,5 @@
+import os
+import ast
 import json
 import redis
 import datetime
@@ -10,7 +12,7 @@ from rq import Queue, Connection
 from Project.Server.DAL.UserDAO import UserDAO
 from Project.Server.DAL.FileDAO import FileDAO
 
-from Project.Server.Tasks.TestTask import create_task
+from Project.Server.Tasks.TestTask import run_algorithm
 
 from Project.Server.Utilities.Authentication import Authentication
 
@@ -27,7 +29,8 @@ def index(error):
         login = user.login.split('@')[0]
         files = FileDAO.get_all(user.id)
         current_year = datetime.datetime.now().year.__str__()
-        return render_template('userPanel.html', user=login, files=files, year=current_year, error=error)
+        return render_template('userPanel.html', user=login, home_catalog=user.home_catalog, files=files,
+                               year=current_year, error=error)
     except Exception as e:
         return redirect(url_for('home_controller.logout', error=e))
 
@@ -72,14 +75,18 @@ def delete_files():
 
 @user_controller.route('/queue_task', methods=['POST'])
 def queue_task():
-    task_type = request.form['type']
+    alg_path = ast.literal_eval(request.form['alg_path'])
+    file_path = request.form['file_path']
     with Connection(redis.from_url(current_app.config['REDIS_URL'])):
-        q = Queue()
-        task = q.enqueue(create_task, task_type)
+        q = Queue(default_timeout=3600)
+        task = q.enqueue(run_algorithm, alg_path[1], file_path)
+
     response_object = {
         'status': 'success',
         'data': {
-            'task_id': task.get_id()
+            'task_id': task.get_id(),
+            'task_name': alg_path[0],
+            'file_name': os.path.basename(file_path)
         }
     }
     return jsonify(response_object), 202

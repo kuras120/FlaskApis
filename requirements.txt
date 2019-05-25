@@ -4,7 +4,6 @@ flask
 redis
 celery
 werkzeug
-sqlalchemy
 flask-sqlalchemy
 
 # git
