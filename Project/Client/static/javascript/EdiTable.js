@@ -3,6 +3,10 @@ let tBody = $('#files-table').find('tbody');
 let backup = [];
 let editing = false;
 
+function addElement() {
+
+}
+
 function editElement(row) {
     if (!editing) {
         editing = true;

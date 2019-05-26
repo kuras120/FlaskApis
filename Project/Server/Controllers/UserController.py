@@ -55,7 +55,7 @@ def add_file():
 @user_controller.route('/files/<string:name>', methods=['PUT'])
 def change_file(name):
     try:
-        data = json.loads(request.get_data('files').decode('utf-8'))
+        data = json.loads(request.get_data().decode('utf-8'))
         user = UserDAO.get(Authentication.decode_auth_token(current_app.config['SECRET_KEY'], session['auth_token']))
         file_to_update = FileDAO.read(name, user.id)
         file_to_update.name = data[0]
