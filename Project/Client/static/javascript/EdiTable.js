@@ -27,16 +27,26 @@ function saveEdit(row) {
         }
     });
 
-
     $.ajax({
-        type : 'POST',
-        url : '/account/change_file',
-        data : JSON.stringify([backup, changes]),
+        type : 'PUT',
+        url : `/account/files/${backup}`,
+        data : JSON.stringify(changes),
         dataType : 'json'
+    })
+    .done((res) => {
+        $('#alerts').html(
+            `<div class="alert alert-success text-center" role="alert">${res.old} to ${res.new} name changed.</div>`
+        );
+        backup = [];
+        closeEdit(row, true);
+    })
+    .fail((erro) => {
+       $('#alerts').html(
+            `<div class="alert alert-warning text-center" role="alert">${erro.toString()}</div>`
+        );
+        closeEdit(row, false);
     });
 
-    alert('saved');
-    closeEdit(row, true);
 }
 
 function closeEdit(row, saved) {
@@ -65,13 +75,22 @@ function removeElements() {
     });
 
     $('#check-all').find('.check').prop('checked', false);
-    let files_str = JSON.stringify(files);
 
     $.ajax({
-        type : 'POST',
-        url : '/account/delete_files',
-        data : files_str,
+        type : 'DELETE',
+        url : '/account/files',
+        data : JSON.stringify(files),
         dataType : 'json'
+    })
+    .done((res) => {
+        $('#alerts').html(
+            `<div class="alert alert-success text-center" role="alert">${res.deleted} deleted.</div>`
+        );
+    })
+    .fail((erro) => {
+        $('#alerts').html(
+            `<div class="alert alert-warning text-center" role="alert">${erro.toString()}</div>`
+        );
     });
 }
 

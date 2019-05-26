@@ -49,11 +49,11 @@
                 </div>
             </div>
         </div>
-        {% if error %}
-        <div class="alert alert-warning text-center" role="alert">
-        {{ error }}
-        </div>
+        <div id="alerts">
+        {% if text %}
+            <div class="alert alert-{{ text[0] }} text-center" role="alert">{{ text[1] }}</div>
         {% endif %}
+        </div>
         <!-- NAVBAR DESKTOP/TABLET -->
         <nav class="navbar d-none d-md-flex fixed-top navbar-expand-md navbar-light bg-light">
             <div class="container-fluid">
