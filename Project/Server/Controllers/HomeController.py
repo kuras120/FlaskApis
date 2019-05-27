@@ -33,7 +33,7 @@ def index(text=None):
                                                                  session['auth_token'])).login.split('@')[0]
         except Exception as e:
             session.pop('auth_token', None)
-            return redirect(url_for('home_controller.index', text=['warning', e]))
+            return redirect(url_for('home_controller.index', text=['warning', e.__str__()]))
 
     if text:
         text = ast.literal_eval(text)

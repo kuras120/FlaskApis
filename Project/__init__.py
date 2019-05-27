@@ -7,6 +7,7 @@ from Project.Config import init_loggers, init_debug
 
 from Project.Server.Controllers.HomeController import home_controller
 from Project.Server.Controllers.UserController import user_controller
+from Project.Server.Controllers.FileController import file_controller
 
 
 def create_app(script_info=None):
@@ -39,6 +40,7 @@ def create_app(script_info=None):
     # register blueprints
     app.register_blueprint(home_controller, url_prefix='/')
     app.register_blueprint(user_controller, url_prefix='/account')
+    app.register_blueprint(file_controller, url_prefix='/account')
 
     # shell context for flask cli
     app.shell_context_processor({'app': app})

@@ -3,8 +3,48 @@ let tBody = $('#files-table').find('tbody');
 let backup = [];
 let editing = false;
 
-function addElement() {
+function addElement(input) {
+    let formData = new FormData();
+    formData.append('file', $(input)[0].files[0]);
+    $.ajax({
+        type : 'POST',
+        url : `/account/files`,
+        data : formData,
+        dataType : 'json',
+        cache:false,
+        processData:false,
+        contentType:false
+    })
+    .done(function (data) {
+        let length = tBody.children().length + 1;
+        tBody.append(
+            `<tr>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input check" id="custom-check-${length}">
+                        <label class="custom-control-label" for="custom-check-${length}">${length}</label>
+                    </div>
+                </td>
+                <td datatype="String" contenteditable="false">${data.name}</td>
+                <td datatype="Date-time">${data.date}</td>
+                <td><a href="#" onclick="editElement(this)">Edit</a></td>
+            </tr>`
+        );
+        $('#alerts').html(
+            `<div class="alert alert-success text-center" style="display: none;" role="alert">${data.name} added.</div>`
+        ).children().first().slideDown('fast');
+    })
+    .fail(function (error) {
+        if (error.status === 401) {
+            window.location.href = error.responseJSON.redirect;
+            return;
+        }
+        $('#alerts').html(
+            `<div class="alert alert-warning text-center" style="display: none;" role="alert">${error.responseJSON.error}</div>`
+        ).children().first().slideDown('fast');
+    });
 
+    $(input).val('');
 }
 
 function editElement(row) {
@@ -31,26 +71,37 @@ function saveEdit(row) {
         }
     });
 
+    if (JSON.stringify(backup) === JSON.stringify(changes)) {
+        closeEdit(row, false);
+        return;
+    }
+
     $.ajax({
         type : 'PUT',
         url : `/account/files/${backup}`,
         data : JSON.stringify(changes),
         dataType : 'json'
     })
-    .done((res) => {
+    .done(function (data) {
         $('#alerts').html(
-            `<div class="alert alert-success text-center" role="alert">${res.old} to ${res.new} name changed.</div>`
-        );
+            `<div class="alert alert-success text-center" style="display: none;" role="alert">${data.old} to ${data.new} name changed.</div>`
+        ).children().first().slideDown('fast');
+
         backup = [];
         closeEdit(row, true);
-    })
-    .fail((erro) => {
-       $('#alerts').html(
-            `<div class="alert alert-warning text-center" role="alert">${erro.toString()}</div>`
-        );
-        closeEdit(row, false);
-    });
 
+    })
+    .fail(function (error) {
+        if (error.status === 401) {
+            window.location.href = error.responseJSON.redirect;
+            return;
+        }
+        $('#alerts').html(
+            `<div class="alert alert-warning text-center" style="display: none;" role="alert">${error.responseJSON.error}</div>`
+        ).children().first().slideDown('fast');
+        closeEdit(row, false);
+
+    });
 }
 
 function closeEdit(row, saved) {
@@ -86,15 +137,19 @@ function removeElements() {
         data : JSON.stringify(files),
         dataType : 'json'
     })
-    .done((res) => {
+    .done(function (data) {
         $('#alerts').html(
-            `<div class="alert alert-success text-center" role="alert">${res.deleted} deleted.</div>`
-        );
+            `<div class="alert alert-success text-center" style="display: none;" role="alert">${data.deleted} deleted.</div>`
+        ).children().first().slideDown('fast');
     })
-    .fail((erro) => {
+    .fail(function (error) {
+        if (error.status === 401) {
+            window.location.href = error.responseJSON.redirect;
+            return;
+        }
         $('#alerts').html(
-            `<div class="alert alert-warning text-center" role="alert">${erro.toString()}</div>`
-        );
+            `<div class="alert alert-warning text-center" style="display: none;" role="alert">${error.responseJSON.error}</div>`
+        ).children().first().slideDown('fast');
     });
 }
 
