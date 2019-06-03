@@ -83,7 +83,7 @@ function addElement(input, home_catalog) {
     $(input).val('');
 }
 
-function editElement(row) {
+function editElement(row, home_catalog) {
     if (!editing) {
         editing = true;
         let parent = $(row).parent();
@@ -93,12 +93,13 @@ function editElement(row) {
                 backup.push($(this).text());
             }
         });
-        parent.html('<a id="" href="#" onclick="saveEdit(this)">Save</a> / ' +
-            '<a href="#" onclick="closeEdit(this,false)">Close</a>');
+        parent.html(
+            `<a id="" href="#" onclick="saveEdit(this, '${home_catalog}')">Save</a> / <a href="#" onclick="closeEdit(this,false)">Close</a>`
+        );
     }
 }
 
-function saveEdit(row) {
+function saveEdit(row, home_catalog) {
     let changes = [];
     let parent = $(row).parent();
     parent.parent().children().each(function () {
@@ -119,6 +120,10 @@ function saveEdit(row) {
         dataType : 'json'
     })
     .done(function (data) {
+        $(`#file-path option:contains('${backup[0]}')`).html(
+            `<option value=Project/Server/DATA/${home_catalog}/${data.new_name}>${data.new_name}</option>`
+        );
+
         $('#alerts').html(
             `<div class="alert alert-success text-center" style="display: none;" role="alert">
                 ${data.old_name} to ${data.new_name} name changed.
@@ -176,6 +181,10 @@ function removeElements() {
         dataType : 'json'
     })
     .done(function (data) {
+        data.deleted_files.forEach(function (value) {
+            $(`#file-path option:contains('${value}')`).remove();
+        });
+
         $('#alerts').html(
             `<div class="alert alert-success text-center" style="display: none;" role="alert">
                 ${data.deleted_files} deleted.
