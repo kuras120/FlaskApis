@@ -95,14 +95,11 @@ def get_tasks():
             q = Queue()
             started = StartedJobRegistry().get_job_ids()
             finished = FinishedJobRegistry().get_job_ids()
-            jobs = started + finished
-            jobs += q.get_job_ids()
+            jobs = started + q.get_job_ids() + finished
 
             objects = []
             for element in jobs:
                 task = q.fetch_job(element)
-                print(task)
-                print(task.get_id())
                 if task.meta['token'] == Authentication.decode_auth_token(current_app.config['SECRET_KEY'],
                                                                           session['auth_token']):
                     if task:
