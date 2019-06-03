@@ -138,7 +138,7 @@
         </div>
         <form method="POST" enctype="multipart/form-data">
             <div class="custom-file">
-                <input id="file-input" type="file" onchange="addElement(this)" class="custom-file-input" name="file-input">
+                <input id="file-input" type="file" onchange="addElement(this, '{{ home_catalog }}')" class="custom-file-input" name="file-input">
                 <label class="custom-file-label" for="file-input">Choose file</label>
             </div>
         </form>

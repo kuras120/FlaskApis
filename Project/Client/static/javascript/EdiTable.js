@@ -3,7 +3,40 @@ let tBody = $('#files-table').find('tbody');
 let backup = [];
 let editing = false;
 
-function addElement(input) {
+function getElements() {
+    $.ajax({
+        type : 'GET',
+        url : `/account/files`,
+    })
+    .done(function (data) {
+        data.forEach(function (index, value) {
+            tBody.append(
+                `<tr>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input check" id="custom-check-${index}">
+                            <label class="custom-control-label" for="custom-check-${index}">${index}</label>
+                        </div>
+                    </td>
+                    <td datatype="String" contenteditable="false">${value.name}</td>
+                    <td datatype="Date-time">${value.added_on}</td>
+                    <td><a href="#" onclick="editElement(this)">Edit</a></td>
+                </tr>`
+            );
+        });
+    })
+    .fail(function (error) {
+        if (error.status === 401) {
+            window.location.href = error.responseJSON.redirect;
+            return;
+        }
+        $('#alerts').html(
+            `<div class="alert alert-warning text-center" style="display: none;" role="alert">${error.responseJSON.error}</div>`
+        ).children().first().slideDown('fast');
+    });
+}
+
+function addElement(input, home_catalog) {
     let formData = new FormData();
     formData.append('file', $(input)[0].files[0]);
     $.ajax({
@@ -26,9 +59,12 @@ function addElement(input) {
                     </div>
                 </td>
                 <td datatype="String" contenteditable="false">${data.name}</td>
-                <td datatype="Date-time">${data.date}</td>
+                <td datatype="Date-time">${data.added_on}</td>
                 <td><a href="#" onclick="editElement(this)">Edit</a></td>
             </tr>`
+        );
+        $('#file-path').append(
+            `<option value=Project/Server/DATA/${home_catalog}/${data.name}>${data.name}</option>`
         );
         $('#alerts').html(
             `<div class="alert alert-success text-center" style="display: none;" role="alert">${data.name} added.</div>`
@@ -84,7 +120,9 @@ function saveEdit(row) {
     })
     .done(function (data) {
         $('#alerts').html(
-            `<div class="alert alert-success text-center" style="display: none;" role="alert">${data.old} to ${data.new} name changed.</div>`
+            `<div class="alert alert-success text-center" style="display: none;" role="alert">
+                ${data.old_name} to ${data.new_name} name changed.
+             </div>`
         ).children().first().slideDown('fast');
 
         backup = [];
@@ -139,7 +177,9 @@ function removeElements() {
     })
     .done(function (data) {
         $('#alerts').html(
-            `<div class="alert alert-success text-center" style="display: none;" role="alert">${data.deleted} deleted.</div>`
+            `<div class="alert alert-success text-center" style="display: none;" role="alert">
+                ${data.deleted_files} deleted.
+             </div>`
         ).children().first().slideDown('fast');
     })
     .fail(function (error) {

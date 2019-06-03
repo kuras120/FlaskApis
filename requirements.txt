@@ -4,6 +4,7 @@ flask
 redis
 celery
 werkzeug
+rq-scheduler
 flask-sqlalchemy
 
 # git

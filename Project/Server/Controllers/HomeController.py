@@ -18,7 +18,7 @@ home_controller = Blueprint('home_controller', __name__)
 survey = PropertiesReader('Project/Client/static/dictionary/feedback_index.properties')
 likes_counter = Value('i', 1200)
 
-
+# TODO Caly kontroler na REST
 @home_controller.route('/')
 @home_controller.route('/<text>/')
 def index(text=None):
@@ -46,7 +46,7 @@ def add_like():
     with likes_counter.get_lock():
         likes_counter.value += 1
     number = Format.human_format(likes_counter.value)
-    return jsonify(number)
+    return jsonify(number), 200
 
 
 @home_controller.route('/login_process', methods=['POST'])
