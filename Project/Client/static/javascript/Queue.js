@@ -58,3 +58,21 @@ function queue() {
     });
 }
 
+$(document).ready(function () {
+    if (window.location.pathname === '/account/') {
+        $.ajax({
+            url: '/account/tasks',
+            method: 'GET'
+        })
+        .done((res) => {
+            console.log(res);
+            res.forEach(function (value) {
+                console.log(value);
+                getStatus(value.data.task_id, value.data.task_name, value.data.file_name, false)
+            })
+        })
+        .fail((error) => {
+           console.log(error)
+        });
+    }
+});

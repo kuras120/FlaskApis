@@ -4,7 +4,6 @@ import logging
 
 from Project.Server.DAL.UserDAO import UserDAO
 
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -71,7 +70,7 @@ def init_loggers():
     error_logger.addHandler(ch)
 
 
-def init_debug():
+def init_debug(app):
     try:
         print('Debug data initialization...')
         UserDAO.delete(UserDAO.get_all())
