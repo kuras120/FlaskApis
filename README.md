@@ -5,6 +5,6 @@ Requirements:
 3. Linux system
 
 How to run:
-1. ./FlaskApp.py
+1. ./Flask.sh
 2. redis-server
 3. python FlaskApp.py run_worker
